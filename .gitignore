@@ -1,0 +1,28 @@
+
+########
+# JAVA #
+########
+*.class
+
+###############
+# IDEs Editor #
+###############
+
+/.idea/
+/.mvn/
+
+###############
+# Exit Folder #
+###############
+
+/out/
+/target/
+
+#########
+# OTHER #
+#########
+
+*.xml
+*.log
+*.iml
+application.properties
