@@ -22,7 +22,6 @@
 # OTHER #
 #########
 
-*.xml
 *.log
 *.iml
 application.properties
