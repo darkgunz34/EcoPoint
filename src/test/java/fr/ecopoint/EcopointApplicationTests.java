@@ -14,7 +14,7 @@ class EcopointApplicationTests {
 
 	@Test
 	void contextLoads(){
-		assertEquals(9090,port);
+		assertEquals(9090, this.port);
 	}
 
 }

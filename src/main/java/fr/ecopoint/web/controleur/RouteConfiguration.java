@@ -1,4 +1,4 @@
-package fr.ecopoint.controleur;
+package fr.ecopoint.web.controleur;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -11,12 +11,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class RouteConfiguration implements WebMvcConfigurer {
 
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        affichagePageUtilisateur(registry);
+    public void addViewControllers(final ViewControllerRegistry registry) {
+        this.affichagePageUtilisateur(registry);
     }
 
-    private void affichagePageUtilisateur(ViewControllerRegistry registry){
+    /**
+     * Méthode pour la gestion des pages accessible de l'application.
+     * @param registry La class où est stocker ces données.
+     */
+    private void affichagePageUtilisateur(final ViewControllerRegistry registry){
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/inscription").setViewName("inscription");
     }
 }
