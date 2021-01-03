@@ -17,4 +17,13 @@ public interface UserRepository extends JpaRepository<User, Long > {
      * @return Le user s'il existe en BDD.
      */
     User findByMail(String mail);
+
+    /**
+     * Méthode pour rechercher un user depuis son adresse mail.
+     *
+     * @param mail L'adresse mail associé.
+     * @param password Le mot de passe hash associé.
+     * @return Le user s'il existe en BDD.
+     */
+    User findByMailAndPassword(String mail,String password);
 }

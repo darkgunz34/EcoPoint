@@ -61,12 +61,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByMailAndPassword(final User user) throws UserException {
+        logger.debug("Recherche un user avec le mail : ".concat(user.getMail()).concat(" et le mot de passe :").concat(user.getPassword()));
+        final User userFromDataBase = this.userRepository.findByMail(user.getMail());
+        if(userFromDataBase != null){
+            if(this.passwordEncoder.matches(user.getPassword(),userFromDataBase.getPassword())){
+                logger.debug("Recherche un user avec le mail réaliser avec succès");
+                return user;
+            }else{
+                logger.debug("Le compte associé n'existe pas ces paramètres");
+                throw new UserException("Erreur, le mot de passe n'est pas identique.");
+            }
+        }
+        else{
+            logger.debug("Le compte associé n'existe pas ces paramètres");
+            throw new UserException("Erreur, tentative de recherche de compte échouer.");
+        }
+    }
+
+    @Override
     public boolean save(final User user) {
         if(!this.roleService.exit(user.getRole())){
-            this.roleService.save(user.getRole());
-            logger.debug("Sauvegarde du role avec succès");
+            if(this.roleService.save(user.getRole())){
+                logger.debug("Sauvegarde du role avec succès");
+            }else{
+                logger.error("Ajout du role impossible : ".concat(user.getRole().toString()));
+            }
         }
-        this.encodeMotDePasse(user);
+        this.encodeMotDePasseUser(user);
         this.userRepository.save(user);
         logger.debug("Sauvegarde du user avec succès");
         return this.exit(user);
@@ -81,7 +103,7 @@ public class UserServiceImpl implements UserService {
      * Encode le mode de passe avant le traitement en BDD.
      * @param user Le user.
      */
-    private void encodeMotDePasse(final User user){
+    private void encodeMotDePasseUser(final User user){
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
     }
 }

@@ -1,5 +1,6 @@
 package fr.ecopoint.web.controleur;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -11,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class RouteConfiguration implements WebMvcConfigurer {
 
     @Override
-    public void addViewControllers(final ViewControllerRegistry registry) {
+    public void addViewControllers(final @NotNull ViewControllerRegistry registry) {
         this.affichagePageUtilisateur(registry);
     }
 
@@ -23,5 +24,6 @@ public class RouteConfiguration implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index").setViewName("index");
         registry.addViewController("/inscription").setViewName("inscription");
+        registry.addViewController("/seconnecter").setViewName("seconnecter");
     }
 }

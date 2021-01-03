@@ -17,6 +17,14 @@ public interface UserService{
     User findByMail(final String mail) throws UserException;
 
     /**
+     * Méthode pour rechercher un user depuis son login
+     * @param user Le user a rechercher.
+     * @return Retourne le user associé.
+     * @throws UserException Exception si le user n'existe pas en BDD.
+     */
+    User findByMailAndPassword(final User user) throws UserException;
+
+    /**
      * Méthode pour enregistrer un user en BDD.
      * @param user Le user a sauvegarder.
      * @return True s'il est bien ajouter.

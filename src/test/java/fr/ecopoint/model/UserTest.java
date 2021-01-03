@@ -7,6 +7,7 @@ import fr.ecopoint.model.exception.RoleException;
 import fr.ecopoint.model.exception.UserException;
 import fr.ecopoint.model.factory.FactoryRole;
 import fr.ecopoint.model.factory.FactoryUser;
+import fr.ecopoint.web.dto.entities.UserLoginDto;
 import fr.ecopoint.web.dto.entities.UserRegistrationDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,7 @@ public class UserTest {
     private User user;
     private UserRegistrationDto userRegistrationDto;
     private Role role;
+    private UserLoginDto userLoginDto;
 
     @BeforeEach
     void init(){
@@ -41,12 +43,16 @@ public class UserTest {
         this.userRegistrationDto.setPrenom(VALIDE_PRENOM);
         this.userRegistrationDto.setTelephone(VALIDE_TELEPHONE);
         this.role = FactoryRole.getRoleParDefault();
+
+        this.userLoginDto = new UserLoginDto();
+        this.userLoginDto.setMail(VALIDE_MAIL);
+        this.userLoginDto.setMotDePasse(VALIDE_MOT_DE_PASSE);
     }
 
     @Test
     void userValide() throws UserException, RoleException {
         this.user = FactoryUser.getUserFromCreation(this.userRegistrationDto, this.role);
-        Assertions.assertTrue(this.testAdresse() && this.testMail() && this.testNom() && this.testPrenom() && this.testTel() && this.testMail() && this.testMotDePasse());
+        Assertions.assertTrue(this.testAdresse() && this.testMail() && this.testNom() && this.testPrenom() && this.testTel() && this.testMail() && this.testMotDePasse() && this.testRole());
     }
 
     @ParameterizedTest
@@ -134,6 +140,64 @@ public class UserTest {
         Assertions.assertFalse(valide);
     }
 
+    @Test
+    void userFromLoginValide() throws RoleException, UserException {
+        this.user = FactoryUser.getUserFromLogin(this.userLoginDto,this.role);
+        Assertions.assertTrue(this.testMail() && this.testMotDePasse() && this.testRole());
+    }
+
+    @Test
+    void userFromLoginMotDePasseNullInvalide() throws RoleException{
+        boolean valide;
+        try{
+            this.userLoginDto.setMotDePasse(null);
+            this.user = FactoryUser.getUserFromLogin(this.userLoginDto,this.role);
+            valide= true;
+        }catch(final UserException userException){
+            valide = false;
+        }
+        Assertions.assertFalse(valide);
+    }
+
+    @Test
+    void userFromLoginMotDePasseValide() throws RoleException{
+        boolean valide;
+        try{
+            this.userLoginDto.setMotDePasse(" ");
+            this.user = FactoryUser.getUserFromLogin(this.userLoginDto,this.role);
+            valide= true;
+        }catch(final UserException userException){
+            valide = false;
+        }
+        Assertions.assertFalse(valide);
+    }
+
+    @Test
+    void userFromLoginMailInvalideNull() throws RoleException{
+        boolean valide;
+        try{
+            this.userLoginDto.setMail(null);
+            this.user = FactoryUser.getUserFromLogin(this.userLoginDto,this.role);
+            valide= true;
+        }catch(final UserException userException){
+            valide = false;
+        }
+        Assertions.assertFalse(valide);
+    }
+
+    @Test
+    void userFromLoginMailInvalideVide() throws RoleException{
+        boolean valide;
+        try{
+            this.userLoginDto.setMail(" ");
+            this.user = FactoryUser.getUserFromLogin(this.userLoginDto,this.role);
+            valide= true;
+        }catch(final UserException userException){
+            valide = false;
+        }
+        Assertions.assertFalse(valide);
+    }
+
     private boolean testMail(){
         return this.user.getMail().equals(VALIDE_MAIL);
     }
@@ -151,5 +215,8 @@ public class UserTest {
     }
     private boolean testMotDePasse(){
         return this.user.getPassword().equals(VALIDE_MOT_DE_PASSE);
+    }
+    private boolean testRole(){
+        return this.user.getRole().equals(this.role);
     }
 }

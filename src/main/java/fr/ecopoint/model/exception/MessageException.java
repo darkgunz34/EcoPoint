@@ -56,4 +56,9 @@ public final class MessageException {
      * Message pour une lever d'exception quand l'adresse est non renseigné.
      */
     public static final String MESSAGE_EXCEPTION_ADRESSE = "L'adresse ne peut pas être vide";
+
+    /**
+     * Message pour une lever d'exception quand l'adresse mail saisie dans la page de connexion est vide.
+     */
+    public static final String MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION = "Vos identifiants ne sont pas valide";
 }

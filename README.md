@@ -17,6 +17,19 @@ Créer la base de données suivante :
 
 Mise en place des logs de l'application paramétrable dans le fichier log4j2.xml.
 
+### Mise en place de test unitaire
+
+Les tests unitaires fonctionnent pour le test des entités mais aussi pour le test des contrôleurs des différentes pages WEB.
+
 ### Ticket EP-50 inscription
 
 Création de la fonctionnalité pour s'inscrire à l'application.
+
+### Ticket EP-51 connexion
+
+Création de la fonctionnalité pour s'authentifier sur le site.
+
+Différents test :
+
+- Test unitaire
+- Test du contrôleur associé à la page de connexion
