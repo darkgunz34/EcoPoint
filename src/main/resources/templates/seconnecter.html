@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion à Eco'point</title>
+</head>
+<body>
+<main>
+    <h2>Connexion</h2>
+    <form th:action="@{/seconnecter}" th:object="${userLoginDto}" method="post">
+        <div th:if="${erreurInterne}" th:text="${erreurInterne}"></div>
+        <div th:if="${erreurMauvaisCompte}" th:text="${erreurMauvaisCompte}"></div>
+        <div>
+            <label for="mail">Adresse mail :</label>
+            <input type="text" name="mail" id="mail"  placeholder="Adresse mail" required/>
+        </div>
+        <div>
+            <label for="password">Mot de passe :</label>
+            <input id="password" name="motDePasse" type="password" placeholder="Mot de passe" required>
+        </div>
+        <div>
+            <a href="#">Mot de passe oublié</a>
+        </div>
+        <div>
+            <button type="submit" id="valide" name="connexion">Connexion</button>
+        </div>
+    </form>
+    <div>
+        <p>Vous n'avez pas de compte ?</p>
+        <a href="#">INSCRIVEZ-VOUS</a>
+    </div>
+</main>
+</body>
+</html>
