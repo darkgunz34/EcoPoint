@@ -1,4 +1,4 @@
-package fr.ecopoint.model.repository;
+package fr.ecopoint.repository;
 
 import fr.ecopoint.model.entities.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

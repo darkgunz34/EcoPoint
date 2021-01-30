@@ -1,4 +1,4 @@
-package fr.ecopoint.model.service;
+package fr.ecopoint.service;
 
 import fr.ecopoint.model.entities.Role;
 import fr.ecopoint.model.exception.RoleException;

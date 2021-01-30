@@ -21,8 +21,8 @@ public class RouteConfiguration implements WebMvcConfigurer {
      * @param registry La class où est stocker ces données.
      */
     private void affichagePageUtilisateur(final ViewControllerRegistry registry){
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/index").setViewName("index");
+        registry.addViewController("/").setViewName("accueil");
+        registry.addViewController("/accueil").setViewName("accueil");
         registry.addViewController("/inscription").setViewName("inscription");
         registry.addViewController("/seconnecter").setViewName("seconnecter");
     }

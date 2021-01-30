@@ -3,13 +3,13 @@ package fr.ecopoint.web.controleur;
 import fr.ecopoint.model.constante.UserConstante;
 import fr.ecopoint.model.entities.Role;
 import fr.ecopoint.model.entities.User;
-import fr.ecopoint.model.exception.MessageException;
+import fr.ecopoint.model.exception.MessageEx;
 import fr.ecopoint.model.exception.RoleException;
 import fr.ecopoint.model.exception.UserException;
 import fr.ecopoint.model.factory.FactoryRole;
 import fr.ecopoint.model.factory.FactoryUser;
-import fr.ecopoint.model.service.RoleService;
-import fr.ecopoint.model.service.UserService;
+import fr.ecopoint.service.RoleService;
+import fr.ecopoint.service.UserService;
 import fr.ecopoint.web.dto.entities.UserRegistrationDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +37,7 @@ public class InscriptionControleur {
     /**
      * Le logger de la class.
      */
-    private final static Logger logger = LogManager.getLogger(InscriptionControleur.class);
+    private static final Logger logger = LogManager.getLogger(InscriptionControleur.class);
 
     /**
      * Service pour la manipulation des données depuis la BDD pour les users.
@@ -87,53 +87,16 @@ public class InscriptionControleur {
     @PostMapping
     public String postInscription(final Model model, @ModelAttribute("userCreateLoginDto") final UserRegistrationDto userRegistrationDto) {
         logger.debug("postInscription()");
-        boolean valide = true;
-        if (userRegistrationDto.getMotDePasse() == null || userRegistrationDto.getMotDePasse().trim().isEmpty()) {
-            valide = false;
-            model.addAttribute("erreurMotDePasse", MessageException.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
-        }
-        if (!userRegistrationDto.getMotDePasse().equals(userRegistrationDto.getMotDePasse2())) {
-            valide = false;
-            model.addAttribute("erreurMotDePasse2", MessageException.MESSAGE_EXCEPTION_MOT_DE_PASSE);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_MOT_DE_PASSE);
-        }
-        if (userRegistrationDto.getMail() == null || !userRegistrationDto.getMail().matches(UserConstante.REGEX_VALIDATION_MAL)) {
-            valide = false;
-            model.addAttribute("erreurMail", MessageException.MESSAGE_EXCEPTION_MAIL);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_MAIL);
-        }
-        if (userRegistrationDto.getTelephone() == null || !userRegistrationDto.getTelephone().matches(UserConstante.REGEX_VALIDATION_TEL)) {
-            valide = false;
-            model.addAttribute("erreurTelephone", MessageException.MESSAGE_EXCEPTION_TELEPHONE);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_TELEPHONE);
-        }
-        if (userRegistrationDto.getNom() == null || userRegistrationDto.getNom().trim().isEmpty()) {
-            valide = false;
-            model.addAttribute("erreurNom", MessageException.MESSAGE_EXCEPTION_NOM);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_NOM);
-        }
-        if (userRegistrationDto.getPrenom() == null || userRegistrationDto.getPrenom().trim().isEmpty()) {
-            valide = false;
-            model.addAttribute("erreurPrenom", MessageException.MESSAGE_EXCEPTION_PRENOM);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_PRENOM);
-        }
-        if (userRegistrationDto.getAdresse() == null || userRegistrationDto.getAdresse().trim().isEmpty()) {
-            valide = false;
-            model.addAttribute("erreurAdresse", MessageException.MESSAGE_EXCEPTION_ADRESSE);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_ADRESSE);
-        }
-
-        if (valide) {
+        if (this.valideDonnee(model,userRegistrationDto)) {
             try {
                 final Role role = this.recuperationRole();
                 final User user = FactoryUser.getUserFromCreation(userRegistrationDto,role);
                 if (!this.userService.exit(user) && this.userService.save(user)) {
                     model.addAttribute("message", "Consulter vos mails afin d'activer votre compte");
-                    return "index";
+                    return "accueil";
                 } else {
                     logger.debug("tentative d'ajout de doublon :");
-                    throw new UserException(MessageException.MESSAGE_EXCEPTION_DOUBLON);
+                    throw new UserException(MessageEx.MESSAGE_EXCEPTION_DOUBLON);
                 }
             } catch (final UserException userException) {
                 model.addAttribute("erreurDejaExistant", userException.getMessage());
@@ -162,11 +125,51 @@ public class InscriptionControleur {
      */
     private Role recuperationRole() throws RoleException {
         final Role role = FactoryRole.getRoleParDefault();
-        if (this.roleService.exit(role)) {
+        if (Boolean.TRUE.equals(this.roleService.exit(role))) {
             return this.roleService.findByName(role.getName());
         } else {
             logger.info("le role avec la valeur par défaut n'existe pas en bdd...");
             return role;
         }
+    }
+
+    private boolean valideDonnee(final Model model, final UserRegistrationDto userRegistrationDto){
+        boolean valide = true;
+        if (userRegistrationDto.getMotDePasse() == null || userRegistrationDto.getMotDePasse().trim().isEmpty()) {
+            valide = false;
+            model.addAttribute("erreurMotDePasse", MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
+        }
+        if (!userRegistrationDto.getMotDePasse().equals(userRegistrationDto.getMotDePasse2())) {
+            valide = false;
+            model.addAttribute("erreurMotDePasse2", MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE);
+        }
+        if (userRegistrationDto.getMail() == null || !userRegistrationDto.getMail().matches(UserConstante.REGEX_VALIDATION_MAL)) {
+            valide = false;
+            model.addAttribute("erreurMail", MessageEx.MESSAGE_EXCEPTION_MAIL);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_MAIL);
+        }
+        if (userRegistrationDto.getTelephone() == null || !userRegistrationDto.getTelephone().matches(UserConstante.REGEX_VALIDATION_TEL)) {
+            valide = false;
+            model.addAttribute("erreurTelephone", MessageEx.MESSAGE_EXCEPTION_TELEPHONE);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_TELEPHONE);
+        }
+        if (userRegistrationDto.getNom() == null || userRegistrationDto.getNom().trim().isEmpty()) {
+            valide = false;
+            model.addAttribute("erreurNom", MessageEx.MESSAGE_EXCEPTION_NOM);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_NOM);
+        }
+        if (userRegistrationDto.getPrenom() == null || userRegistrationDto.getPrenom().trim().isEmpty()) {
+            valide = false;
+            model.addAttribute("erreurPrenom", MessageEx.MESSAGE_EXCEPTION_PRENOM);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_PRENOM);
+        }
+        if (userRegistrationDto.getAdresse() == null || userRegistrationDto.getAdresse().trim().isEmpty()) {
+            valide = false;
+            model.addAttribute("erreurAdresse", MessageEx.MESSAGE_EXCEPTION_ADRESSE);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_ADRESSE);
+        }
+        return valide;
     }
 }
