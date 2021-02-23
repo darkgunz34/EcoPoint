@@ -1,8 +1,8 @@
-package fr.ecopoint.model.service;
+package fr.ecopoint.service;
 
 import fr.ecopoint.model.entities.User;
 import fr.ecopoint.model.exception.UserException;
-import fr.ecopoint.model.repository.UserRepository;
+import fr.ecopoint.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
     /**
      * Le logger de la class.
      */
-    private final static Logger logger = LogManager.getLogger(UserServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
     /**
      * Interface pour le CRUD User.
@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByMail(final String mail) throws UserException {
-        logger.debug("Recherche un user avec le mail : ".concat(mail));
+        logger.debug("Recherche un user avec le mail : {}",mail);
         final User user = this.userRepository.findByMail(mail);
         if(user != null){
             logger.debug("Recherche un user avec le mail avec succès");
@@ -62,12 +62,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByMailAndPassword(final User user) throws UserException {
-        logger.debug("Recherche un user avec le mail : ".concat(user.getMail()).concat(" et le mot de passe :").concat(user.getPassword()));
+        logger.debug("Recherche un user avec le mail : {} et le mot de passe : {}",user.getMail(),user.getPassword());
         final User userFromDataBase = this.userRepository.findByMail(user.getMail());
         if(userFromDataBase != null){
             if(this.passwordEncoder.matches(user.getPassword(),userFromDataBase.getPassword())){
                 logger.debug("Recherche un user avec le mail réaliser avec succès");
-                return user;
+                return userFromDataBase;
             }else{
                 logger.debug("Le compte associé n'existe pas ces paramètres");
                 throw new UserException("Erreur, le mot de passe n'est pas identique.");
@@ -81,11 +81,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean save(final User user) {
-        if(!this.roleService.exit(user.getRole())){
+        if(Boolean.FALSE.equals(this.roleService.exit(user.getRole()))){
             if(this.roleService.save(user.getRole())){
                 logger.debug("Sauvegarde du role avec succès");
             }else{
-                logger.error("Ajout du role impossible : ".concat(user.getRole().toString()));
+                logger.error("Ajout du role impossible : {}",user.getRole());
             }
         }
         this.encodeMotDePasseUser(user);

@@ -2,7 +2,7 @@ package fr.ecopoint.model;
 
 import fr.ecopoint.model.entities.Role;
 import fr.ecopoint.model.entities.User;
-import fr.ecopoint.model.exception.MessageException;
+import fr.ecopoint.model.exception.MessageEx;
 import fr.ecopoint.model.exception.RoleException;
 import fr.ecopoint.model.exception.UserException;
 import fr.ecopoint.model.factory.FactoryRole;
@@ -17,7 +17,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class UserTest {
+class UserTest {
 
     private static final String VALIDE_MAIL = "stephan.parichon@epsi.fr";
     private static final String VALIDE_ADRESSE = "Montpellier";
@@ -64,7 +64,7 @@ public class UserTest {
             this.user = FactoryUser.getUserFromCreation(this.userRegistrationDto, this.role);
             valide = true;
         }catch(final UserException | RoleException e){
-            valide = !e.getMessage().equals(MessageException.MESSAGE_EXCEPTION_MAIL);
+            valide = !e.getMessage().equals(MessageEx.MESSAGE_EXCEPTION_MAIL);
         }
         Assertions.assertFalse(valide);
     }
@@ -79,7 +79,7 @@ public class UserTest {
             Assertions.assertTrue(true);
             valide = true;
         }catch(final UserException | RoleException e){
-            valide = !e.getMessage().equals(MessageException.MESSAGE_EXCEPTION_MAIL);
+            valide = !e.getMessage().equals(MessageEx.MESSAGE_EXCEPTION_MAIL);
         }
         Assertions.assertTrue(valide);
     }
@@ -93,7 +93,7 @@ public class UserTest {
             this.user = FactoryUser.getUserFromCreation(this.userRegistrationDto, this.role);
             valide = true;
         }catch(final UserException | RoleException e){
-            valide = !e.getMessage().equals(MessageException.MESSAGE_EXCEPTION_TELEPHONE);
+            valide = !e.getMessage().equals(MessageEx.MESSAGE_EXCEPTION_TELEPHONE);
         }
         Assertions.assertFalse(valide);
     }
@@ -107,7 +107,7 @@ public class UserTest {
             this.user = FactoryUser.getUserFromCreation(this.userRegistrationDto, this.role);
             valide = true;
         } catch (final UserException | RoleException e) {
-            valide = !e.getMessage().equals(MessageException.MESSAGE_EXCEPTION_NOM);
+            valide = !e.getMessage().equals(MessageEx.MESSAGE_EXCEPTION_NOM);
         }
         Assertions.assertFalse(valide);
     }
@@ -121,7 +121,7 @@ public class UserTest {
             this.user = FactoryUser.getUserFromCreation(this.userRegistrationDto, this.role);
             valide = true;
         } catch (final UserException  | RoleException e) {
-            valide = !e.getMessage().equals(MessageException.MESSAGE_EXCEPTION_PRENOM);
+            valide = !e.getMessage().equals(MessageEx.MESSAGE_EXCEPTION_PRENOM);
         }
         Assertions.assertFalse(valide);
     }
@@ -135,7 +135,7 @@ public class UserTest {
             this.user = FactoryUser.getUserFromCreation(this.userRegistrationDto, this.role);
             valide = true;
         } catch (final UserException  | RoleException e) {
-            valide = !e.getMessage().equals(MessageException.MESSAGE_EXCEPTION_ADRESSE);
+            valide = !e.getMessage().equals(MessageEx.MESSAGE_EXCEPTION_ADRESSE);
         }
         Assertions.assertFalse(valide);
     }
