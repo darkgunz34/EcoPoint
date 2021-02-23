@@ -3,7 +3,7 @@ package fr.ecopoint.web.controleur;
 import fr.ecopoint.model.constante.UserConstante;
 import fr.ecopoint.model.entities.Contact;
 import fr.ecopoint.model.exception.ContactException;
-import fr.ecopoint.model.exception.MessageException;
+import fr.ecopoint.model.exception.MessageEx;
 import fr.ecopoint.model.factory.FactoryContact;
 import fr.ecopoint.model.service.ContactService;
 import fr.ecopoint.web.dto.entities.ContactDto;
@@ -78,23 +78,23 @@ public class ContactControleur {
         boolean valide = true;
         if (contactDto.getNom() == null || contactDto.getNom().trim().isEmpty()) {
             valide = false;
-            model.addAttribute("erreurNom", MessageException.MESSAGE_EXCEPTION_NOM);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_NOM);
+            model.addAttribute("erreurNom", MessageEx.MESSAGE_EXCEPTION_NOM);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_NOM);
         }
         if (contactDto.getMail() == null || !contactDto.getMail().matches(UserConstante.REGEX_VALIDATION_MAL)) {
             valide = false;
-            model.addAttribute("erreurMail", MessageException.MESSAGE_EXCEPTION_MAIL);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_MAIL);
+            model.addAttribute("erreurMail", MessageEx.MESSAGE_EXCEPTION_MAIL);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_MAIL);
         }
         if (contactDto.getObjet() == null || contactDto.getObjet().trim().isEmpty()) {
             valide = false;
-            model.addAttribute("erreurObjet", MessageException.MESSAGE_EXCEPTION_OBJET);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_OBJET);
+            model.addAttribute("erreurObjet", MessageEx.MESSAGE_EXCEPTION_OBJET);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_OBJET);
         }
         if (contactDto.getMessage() == null || contactDto.getMessage().trim().isEmpty()) {
             valide = false;
-            model.addAttribute("erreurMessage", MessageException.MESSAGE_EXCEPTION_MESSAGE);
-            logger.debug(MessageException.MESSAGE_EXCEPTION_MESSAGE);
+            model.addAttribute("erreurMessage", MessageEx.MESSAGE_EXCEPTION_MESSAGE);
+            logger.debug(MessageEx.MESSAGE_EXCEPTION_MESSAGE);
         }
 
         if (valide) {
@@ -104,7 +104,7 @@ public class ContactControleur {
                     model.addAttribute("message", "Votre demande a bien été prise en compte. Un administrateur se charge de");
                     return "index";
                 } else {
-                    throw new ContactException(MessageException.MESSAGE_EXCEPTION_ERREUR_INTERNE);
+                    throw new ContactException(MessageEx.MESSAGE_EXCEPTION_ERREUR_INTERNE);
                 }
             } catch (final ContactException contactException) {
                 model.addAttribute("erreurInterne", contactException.getMessage());
