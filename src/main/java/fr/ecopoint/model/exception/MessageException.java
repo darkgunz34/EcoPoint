@@ -48,6 +48,16 @@ public final class MessageException {
     public static final String MESSAGE_EXCEPTION_NOM = "Le nom ne peut pas être vide";
 
     /**
+     * Message pour une lever d'exception quand l'objet est non renseigné.
+     */
+    public static final String MESSAGE_EXCEPTION_OBJET = "L'objet ne peut pas être vide";
+
+    /**
+     * Message pour une lever d'exception quand le message est non renseigné.
+     */
+    public static final String MESSAGE_EXCEPTION_MESSAGE = "Le message ne peut pas être vide";
+
+    /**
      * Message pour une lever d'exception quand le prénom est non renseigné.
      */
     public static final String MESSAGE_EXCEPTION_PRENOM = "Le prénom ne peut pas être vide";
@@ -61,4 +71,9 @@ public final class MessageException {
      * Message pour une lever d'exception quand l'adresse mail saisie dans la page de connexion est vide.
      */
     public static final String MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION = "Vos identifiants ne sont pas valide";
+
+    /**
+     * Message pour une lever d'exception quand une erreur interne est survenue.
+     */
+    public static final String MESSAGE_EXCEPTION_ERREUR_INTERNE = "Une erreur interne est survenue";
 }
