@@ -7,6 +7,8 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * Entité en charge de l'ensemble des données personnel d'un utilisateur.
@@ -14,9 +16,8 @@ import javax.persistence.*;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "mail"))
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString(of = {"id","mail","password","nom","prenom","telephone","adresse","role"})
-public class User {
-
+@ToString(of = {"id","mail","password","nom","prenom","telephone","adresse","role","lstPointsCollect"})
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Getter
@@ -50,6 +51,11 @@ public class User {
     @Getter
     @Setter
     Role role;
+
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @Getter
+    @Setter
+    private List<PointCollect> lstPointsCollect;
 
     /**
      * Constructeur avec les données pré-remplie.

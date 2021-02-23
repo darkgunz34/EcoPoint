@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class seConnecterTest {
+class SeConnecterTest {
 
     private static final String URL_PAGE_CONNEXION = "/seconnecter";
     private static final String FORMULAIRE = "<form action=\"/seconnecter\" method=\"post\">";
@@ -26,7 +26,7 @@ public class seConnecterTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testGet() throws Exception {
+    void testGet() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders.get(URL_PAGE_CONNEXION))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("seconnecter"))
@@ -34,7 +34,7 @@ public class seConnecterTest {
     }
 
     @Test
-    public void testPostErrorParamEmpty() throws Exception {
+    void testPostErrorParamEmpty() throws Exception {
         boolean valide;
         final MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.post(URL_PAGE_CONNEXION))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -48,7 +48,7 @@ public class seConnecterTest {
     }
 
     @Test
-    public void testPostErrorParamBad() throws Exception {
+    void testPostErrorParamBad() throws Exception {
         boolean valide;
         final MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.post(URL_PAGE_CONNEXION).param("mail", ADRESS_MAIL).param("motDePasse",MOT_DE_PASSE.concat("error")))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -60,15 +60,5 @@ public class seConnecterTest {
         valide = content.contains(URL_PAGE_CONNEXION);
         if(!valide) valide = content.contains(FORMULAIRE);
         Assertions.assertTrue(valide);
-    }
-
-    @Test
-    public void testPostSuccessParam() throws Exception {
-        final MvcResult result = this.mockMvc.perform(MockMvcRequestBuilders.post(URL_PAGE_CONNEXION).param("mail", ADRESS_MAIL).param("motDePasse",MOT_DE_PASSE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("index"))
-                .andExpect(MockMvcResultMatchers.model().attributeExists(USER))
-                .andReturn();
-        Assertions.assertTrue(true);
     }
 }

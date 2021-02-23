@@ -3,12 +3,12 @@ package fr.ecopoint.model.exception;
 /**
  * Ensemble des messages concernant les exceptions des entités en BDD.
  */
-public final class MessageException {
+public final class MessageEx {
 
     /**
      * Constructeur privé.
      */
-    private MessageException() {
+    private MessageEx() {
 
     }
 

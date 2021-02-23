@@ -2,7 +2,7 @@ package fr.ecopoint.model.factory;
 
 import fr.ecopoint.model.constante.UserConstante;
 import fr.ecopoint.model.entities.Role;
-import fr.ecopoint.model.exception.MessageException;
+import fr.ecopoint.model.exception.MessageEx;
 import fr.ecopoint.model.exception.RoleException;
 import fr.ecopoint.model.exception.UserException;
 import fr.ecopoint.model.entities.User;
@@ -19,7 +19,7 @@ public final class FactoryUser {
     /**
      * Le logger de la class.
      */
-    private final static Logger logger = LogManager.getLogger(FactoryUser.class);
+    private static final Logger logger = LogManager.getLogger(FactoryUser.class);
 
     /**
      * Constructeur privé.
@@ -35,34 +35,36 @@ public final class FactoryUser {
      * @throws RoleException lève une exception en cas de données non instancié / vide.
      */
     public static User getUserFromCreation(final UserRegistrationDto userRegistrationDto, final Role role) throws UserException, RoleException {
-        logger.debug("Création de user avec les paramètres suivants : ".concat(userRegistrationDto.toString()).concat(" et ").concat(role.toString()));
+        final String sb = "Création de user avec les paramètres suivants : " + userRegistrationDto.toString() + " et " + role.toString();
+        logger.debug(sb);
+
         if(!valideNonNullMotDePasse(userRegistrationDto.getMotDePasse(), userRegistrationDto.getMotDePasse2())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
         }
         if(!valideIdentiqueMotDePasse(userRegistrationDto.getMotDePasse(), userRegistrationDto.getMotDePasse2())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_MOT_DE_PASSE);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE);
         }
         if(nonValideMail(userRegistrationDto.getMail())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_MAIL);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_MAIL);
         }
         if(!valideTelephone(userRegistrationDto.getTelephone())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_TELEPHONE);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_TELEPHONE);
         }
 
         if(nonValideAdresse(userRegistrationDto.getNom())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_NOM);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_NOM);
         }
 
         if(nonValideAdresse(userRegistrationDto.getPrenom())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_PRENOM);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_PRENOM);
         }
 
         if(nonValideAdresse(userRegistrationDto.getAdresse())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_ADRESSE);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_ADRESSE);
         }
 
         if(nonValideRole(role)){
-            throw new RoleException(MessageException.MESSAGE_EXCEPTION_VIDE);
+            throw new RoleException(MessageEx.MESSAGE_EXCEPTION_VIDE);
         }
 
         return new User(userRegistrationDto.getMail(),userRegistrationDto.getMotDePasse(),userRegistrationDto.getNom(),
@@ -79,15 +81,15 @@ public final class FactoryUser {
      */
     public static User getUserFromLogin(final UserLoginDto userLoginDto, final Role role) throws UserException,RoleException{
         if(nonValideMail(userLoginDto.getMail())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
         }
 
         if(!champNonVide(userLoginDto.getMotDePasse())){
-            throw new UserException(MessageException.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
         }
 
         if(nonValideRole(role)){
-            throw new RoleException(MessageException.MESSAGE_EXCEPTION_VIDE);
+            throw new RoleException(MessageEx.MESSAGE_EXCEPTION_VIDE);
         }
 
         return new User(userLoginDto.getMail(), userLoginDto.getMotDePasse(), role);
@@ -147,24 +149,6 @@ public final class FactoryUser {
      */
     private static boolean nonValideMail(final String mail){
         return !champNonVide(mail) || !mail.matches(UserConstante.REGEX_VALIDATION_MAL);
-    }
-
-    /**
-     * Méthode pour vérifier si le nom est valide.
-     * @param nom Le nom à contrôler.
-     * @return True si elle est valide.
-     */
-    private static boolean valideNom(final String nom){
-        return nom != null && nom.trim().isEmpty();
-    }
-
-    /**
-     * Méthode pour vérifier si le prénom est valide.
-     * @param prenom Le prénom à contrôler.
-     * @return True si elle est valide.
-     */
-    private static boolean validePrenom(final String prenom){
-        return champNonVide(prenom);
     }
 
         /**
