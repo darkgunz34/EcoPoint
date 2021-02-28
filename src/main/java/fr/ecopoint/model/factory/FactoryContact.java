@@ -3,7 +3,7 @@ package fr.ecopoint.model.factory;
 import fr.ecopoint.model.constante.UserConstante;
 import fr.ecopoint.model.entities.Contact;
 import fr.ecopoint.model.exception.ContactException;
-import fr.ecopoint.model.exception.MessageException;
+import fr.ecopoint.model.exception.MessageEx;
 import fr.ecopoint.web.dto.entities.ContactDto;
 
 /**
@@ -23,16 +23,16 @@ public final class FactoryContact {
      */
     public static Contact getContactAvecParam(final ContactDto contactDto) throws ContactException{
         if(nonValideMail(contactDto.getMail())){
-            throw new ContactException(MessageException.MESSAGE_EXCEPTION_MAIL);
+            throw new ContactException(MessageEx.MESSAGE_EXCEPTION_MAIL);
         }
         if(!champNonVide(contactDto.getNom())){
-            throw new ContactException(MessageException.MESSAGE_EXCEPTION_NOM);
+            throw new ContactException(MessageEx.MESSAGE_EXCEPTION_NOM);
         }
         if(!champNonVide(contactDto.getObjet())){
-            throw new ContactException(MessageException.MESSAGE_EXCEPTION_OBJET);
+            throw new ContactException(MessageEx.MESSAGE_EXCEPTION_OBJET);
         }
         if(!champNonVide(contactDto.getMessage())){
-            throw new ContactException(MessageException.MESSAGE_EXCEPTION_MESSAGE);
+            throw new ContactException(MessageEx.MESSAGE_EXCEPTION_MESSAGE);
         }
         return new Contact( contactDto.getMail(), contactDto.getNom(),contactDto.getObjet(),contactDto.getMessage());
     }

@@ -3,14 +3,17 @@ package fr.ecopoint.web.controleur;
 import fr.ecopoint.model.constante.UserConstante;
 import fr.ecopoint.model.entities.Role;
 import fr.ecopoint.model.entities.User;
+import fr.ecopoint.model.exception.MailException;
 import fr.ecopoint.model.exception.MessageEx;
 import fr.ecopoint.model.exception.RoleException;
 import fr.ecopoint.model.exception.UserException;
 import fr.ecopoint.model.factory.FactoryRole;
 import fr.ecopoint.model.factory.FactoryUser;
+import fr.ecopoint.model.utils.MailUtile;
 import fr.ecopoint.service.RoleService;
 import fr.ecopoint.service.UserService;
 import fr.ecopoint.web.dto.entities.UserRegistrationDto;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +31,9 @@ import org.apache.logging.log4j.Logger;
 @Controller
 @RequestMapping("/inscription")
 public class InscriptionControleur {
+
+    @Qualifier("javaMailSender")
+    public MailUtile mailUtile;
 
     /**
      * La page associé au contrôleur.
@@ -54,9 +60,10 @@ public class InscriptionControleur {
      * @param roleService Service pour la manipulation des données depuis la BDD pour les roles.
      * @param userService Service pour la manipulation des données depuis la BDD pour les users.
      */
-    public InscriptionControleur(final RoleService roleService, final UserService userService){
+    public InscriptionControleur(final RoleService roleService, final UserService userService,final MailUtile mailUtile){
         this.roleService = roleService;
         this.userService = userService;
+        this.mailUtile = mailUtile;
     }
 
     /**
@@ -91,13 +98,16 @@ public class InscriptionControleur {
             try {
                 final Role role = this.recuperationRole();
                 final User user = FactoryUser.getUserFromCreation(userRegistrationDto,role);
-                if (!this.userService.exit(user) && this.userService.save(user)) {
+                if (mailUtile.envoyerMailInscription(user) && !this.userService.exit(user) && this.userService.save(user)) {
                     model.addAttribute("message", "Consulter vos mails afin d'activer votre compte");
-                    return "accueil";
+                    return "redirect:accueil";
                 } else {
                     logger.debug("tentative d'ajout de doublon :");
                     throw new UserException(MessageEx.MESSAGE_EXCEPTION_DOUBLON);
                 }
+            }catch (final MailException mailException){
+                model.addAttribute("erreurInterne","Impossible d'envoyer un mail pour confirmer l'inscription. Veuillez réessayer ultérieurement ou contacter directement le support. Veuillez nous excuser de cette gène occasionné.");
+                logger.error("Erreur durant l'envoie du mail : ".concat(mailException.getMessage()));
             } catch (final UserException userException) {
                 model.addAttribute("erreurDejaExistant", userException.getMessage());
                 logger.error("Erreur durant le traitement des données du userException :".concat(userException.getMessage()));

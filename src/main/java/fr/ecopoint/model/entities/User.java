@@ -47,7 +47,7 @@ public class User implements Serializable {
     @Setter
     String adresse;
 
-    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne(cascade={CascadeType.PERSIST, CascadeType.PERSIST})
     @Getter
     @Setter
     Role role;
