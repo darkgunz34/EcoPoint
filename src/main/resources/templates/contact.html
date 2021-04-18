@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr"
-      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -10,16 +9,16 @@
 <body>
     <h2>Formulaire de contact</h2>
     <form th:action="@{/contact}" th:object="${contactDto}" method="post">
-        <div th:if="${erreurInterne}" th:text="${erreurInterne}"></div>
+        <div th:text="${erreurInterne}"></div>
         <div>
             <label for="nom">Nom : *</label>
             <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
-            <div th:if="${erreurNom}" th:text="${erreurNom}"></div>
+            <div th:text="${erreurNom}"></div>
         </div>
         <div>
             <label for="mail">Mail : *</label>
             <input type="email" name="mail" placeholder="contact@ecopoint.fr" id="mail" th:value="${valeur_mail}" required/>
-            <div th:if="${erreurMail}" th:text="${erreurMail}"></div>
+            <div th:text="${erreurMail}"></div>
         </div>
         <div>
             <label for="objet" >Objet : *</label>

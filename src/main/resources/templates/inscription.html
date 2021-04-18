@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insciption EcoPoint</title>
+    <title>Inscription EcoPoint</title>
 
     <link th:href="@{/style/css/header.css}" rel="stylesheet" />
     <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
@@ -20,34 +20,34 @@
             <div>
                 <label for="nom">Nom : *</label>
                 <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
-                <div th:if="${erreurNom}" th:text="${erreurNom}"></div>
+                <div th:text="${erreurNom}"></div>
             </div>
             <div>
                 <label for="prenom">Prénom : *</label>
                 <input type="text" name="prenom" placeholder="Votre prénom" id="prenom" th:value="${valeur_prenom}" required/>
-                <div th:if="${erreurPrenom}" th:text="${erreurPrenom}"></div>
+                <div th:text="${erreurPrenom}"></div>
             </div>
             <div>
                 <label for="telephone">Téléphone : *</label>
                 <input type="tel" name="telephone" placeholder="0601010101" id="telephone" th:value="${valeur_telephone}" required/>
-                <div th:if="${erreurTelephone}" th:text="${erreurTelephone}"></div>
+                <div th:text="${erreurTelephone}"></div>
             </div>
             <div>
                 <label>Mail : *
                     <input type="text" name="mail" placeholder="contact@ecopoint.fr" th:value="${valeur_mail}" required/>
                 </label>
-                <div th:if="${erreurMail}" th:text="${erreurMail}"></div>
+                <div th:text="${erreurMail}"></div>
             </div>
             <div>
                 <label for="motDePasse">Mot de passe : *</label>
                 <input type="password" name="motDePasse" placeholder="***********" id="motDePasse" required/>
-                <div th:if="${erreurMotDePasse}" th:text="${erreurMotDePasse}"></div>
+                <div th:text="${erreurMotDePasse}"></div>
             </div>
             <div>
                 <label>Confirmation mot de passe : *
                     <input type="password" name="MotDePasse2" placeholder="***********" required/>
                 </label>
-                <div th:if="${erreurMotDePasse2}" th:text="${erreurMotDePasse2}"></div>
+                <div th:text="${erreurMotDePasse2}"></div>
             </div>
         </div>
         <div>
