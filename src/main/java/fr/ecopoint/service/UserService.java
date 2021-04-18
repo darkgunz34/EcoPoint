@@ -37,4 +37,11 @@ public interface UserService{
      * @return True s'il existe.
      */
     boolean exit(final User user);
+
+    /**
+     * Méthode pour supprimer un user en BDD.
+     * @param user Le user a supprimer.
+     * @return True s'il est bien supprimer.
+     */
+    boolean delete(final User user);
 }

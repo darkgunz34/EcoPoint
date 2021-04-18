@@ -99,6 +99,12 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByMail(user.getMail()) != null;
     }
 
+    @Override
+    public boolean delete(final User user) {
+        this.userRepository.delete(user);
+        return !this.exit(user);
+    }
+
     /**
      * Encode le mode de passe avant le traitement en BDD.
      * @param user Le user.
