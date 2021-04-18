@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Mes informations Eco'point</title>
+</head>
+<body>
+<main>
+    <h2>Modifier mes informations</h2>
+    <div>
+        <form th:action="@{/mesinformations}" th:object="${userModificationDto}" method="post">
+            <div>
+                <label for="nom">Nom :</label>
+                <input id="nom" type="text" th:value="${valeur_nom}" name="nom"/>
+            </div>
+            <div>
+                <label for="prenom">Prénom :</label>
+                <input id="prenom" type="text" th:value="${valeur_prenom}" name="prenom"/>
+            </div>
+            <div>
+                <label for="telephone">Téléphone :</label>
+                <input id="telephone" type="text"  th:value="${valeur_telephone}" name="telephone"/>
+            </div>
+            <div>
+                <label for="mail">E-mail :</label>
+                <input id="mail" type="email" th:value="${valeur_mail}" name="mail"/>
+            </div>
+            <div>
+                <label for="adresse">Adresse :</label>
+                <input id="adresse" type="text"  th:value="${valeur_adresse}" name="adresse"/>
+            </div>
+            <div>
+                <label for="code_postale">Code postal :</label>
+                <input id="code_postale" type="number" th:value="${valeur_code_postale}" name="code_postale"/>
+            </div>
+            <div>
+                <label for="ville">ville :</label>
+                <input id="ville" type="text"  th:value="${valeur_ville}" name="ville"/>
+            </div>
+            <div>
+                <input type="submit" value="Modifier mes informations">
+            </div>
+        </form>
+
+        <form>
+            <div>
+                <label for="mdp">Nouveau mot de passe :</label>
+                <input id="mdp" type="password" placeholder="Nouveau mot de passe" name="mdp"/>
+            </div>
+            <div>
+                <label for="confirm_mdp">Confirmation mot de passe :</label>
+                <input id="confirm_mdp" type="password" placeholder="Confirmation de nouveau mot de passe" name="confirm_mdp"/>
+            </div>
+            <div>
+                <input type="submit" value="Modifier mon mot de passe">
+            </div>
+        </form>
+        <input type="button" onclick="showConfirm()" value="Supprimer mon compte" />
+    </div>
+</main>
+</body>
+
+<script type="text/javascript">
+    function showConfirm()
+    {
+        var answer=confirm("Voulez-vous supprimer votre compte ?");
+        if (answer===true)
+        {
+            window.location.href = "mesinformations/ConfirmationSupression";
+        }
+    }
+</script>
+</html>

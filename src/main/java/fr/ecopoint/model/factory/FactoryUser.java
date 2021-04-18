@@ -56,7 +56,7 @@ public final class FactoryUser {
             throw new UserException(MessageEx.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
         }
 
-        if(!champNonVide(userLoginDto.getMotDePasse())){
+        if(champNonVide(userLoginDto.getMotDePasse())){
             throw new UserException(MessageEx.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
         }
 
