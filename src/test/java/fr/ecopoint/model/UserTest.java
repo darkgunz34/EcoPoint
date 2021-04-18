@@ -36,7 +36,7 @@ class UserTest {
     void init(){
         this.userRegistrationDto = new UserRegistrationDto();
         this.userRegistrationDto.setMail(VALIDE_MAIL);
-        this.userRegistrationDto.setAdresse(VALIDE_ADRESSE);
+//        this.userRegistrationDto.setAdresse(true);
         this.userRegistrationDto.setMotDePasse(VALIDE_MOT_DE_PASSE);
         this.userRegistrationDto.setMotDePasse2(VALIDE_MOT_DE_PASSE_2);
         this.userRegistrationDto.setNom(VALIDE_NOM);
@@ -131,7 +131,7 @@ class UserTest {
     void userAdresseInvalide(final String param){
         boolean valide;
         try {
-            this.userRegistrationDto.setAdresse(param);
+//            this.userRegistrationDto.setAdresse(true);
             this.user = FactoryUser.getUserFromCreation(this.userRegistrationDto, this.role);
             valide = true;
         } catch (final UserException  | RoleException e) {
@@ -202,7 +202,7 @@ class UserTest {
         return this.user.getMail().equals(VALIDE_MAIL);
     }
     private boolean testAdresse(){
-        return this.user.getAdresse().equals(VALIDE_ADRESSE);
+        return this.user.getAdresse().toString().equals(VALIDE_ADRESSE);
     }
     private boolean testNom(){
         return this.user.getNom().equals(VALIDE_NOM);

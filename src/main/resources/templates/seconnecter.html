@@ -5,8 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion à Eco'point</title>
+    <title>Connexion EcoPoint</title>
+
+    <link th:href="@{/style/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
 </head>
+<header th:include="template/header"></header>
 <body>
 <main>
     <h2>Connexion</h2>
@@ -30,8 +34,9 @@
     </form>
     <div>
         <p>Vous n'avez pas de compte ?</p>
-        <a href="#">INSCRIVEZ-VOUS</a>
+        <a href="inscription">INSCRIVEZ-VOUS</a>
     </div>
 </main>
 </body>
+<footer th:include="template/footer"></footer>
 </html>

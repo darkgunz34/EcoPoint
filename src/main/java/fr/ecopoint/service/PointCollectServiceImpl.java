@@ -10,19 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Service en charge d'implémenter le CRUD Role.
- */
 @Service
 public class PointCollectServiceImpl implements PointCollectService{
-    /**
-     * Le logger de la class.
-     */
-    private static final Logger LOGGER = LogManager.getLogger(PointCollectServiceImpl.class);
 
-    /**
-     * Interface pour le CRUD spécifique.
-     */
+    private static final Logger LOGGER = LogManager.getLogger(PointCollectServiceImpl.class);
     private final CustomPointCollectRepository customPointCollectRepository;
 
     public PointCollectServiceImpl(final CustomPointCollectRepository customPointCollectRepository) {

@@ -1,0 +1,28 @@
+<nav role="navigation">
+  <div id="menuToggle">
+    <input type="checkbox" />
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="menu">
+      <a href="#"><li>Comment trier ?</li></a>
+      <a href="#"><li>Nos partenaires</li></a>
+      <a href="#"><li>Contact</li></a>
+      <a href="#"><li>FAQ</li></a>
+    </ul>
+  </div>
+</nav>
+<div class="menu">
+  <a href="">Comment trier ?</a>
+  <a href="">Nos partenaires</a>
+  <a href="">Contact</a>
+  <a href="">FAQ</a>
+</div>
+<div class="logo-co">
+  <img src="./media/LogoEcoPoint.svg" alt="LogoEcoPoint">
+</div>
+
+<div class="user">
+  <a th:if="${userAccueilDto == null}" href="/seconnecter"><img src="./media/LogoUser.svg" alt="LogoUser"></a>
+  <a th:if="${userAccueilDto != null}" href="/sedeconnecter"><img src="./media/LogoUser.svg" alt="LogoUser"></a>
+</div>

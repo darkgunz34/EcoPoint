@@ -8,38 +8,17 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-/**
- * Service en charge d'implémenter le CRUD User.
- */
 @Service
 public class UserServiceImpl implements UserService {
 
-    /**
-     * Le logger de la class.
-     */
     private static final Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
-    /**
-     * Interface pour le CRUD User.
-     */
     private final UserRepository userRepository;
 
-    /**
-     * Interface pour le CRUD Role
-     */
     private final RoleService roleService;
 
-    /**
-     * Class pour asher le mot de passe.
-     */
     private final BCryptPasswordEncoder passwordEncoder;
 
-    /**
-     * Constructeur du service
-     * @param userRepository Interface pour le CRUD User
-     * @param roleService  Interface pour le CRUD Role
-     * @param passwordEncoder Class pour asher le mot de passe.
-     */
     public UserServiceImpl(final UserRepository userRepository, final RoleService roleService, final BCryptPasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.roleService = roleService;
@@ -105,10 +84,6 @@ public class UserServiceImpl implements UserService {
         return !this.exit(user);
     }
 
-    /**
-     * Encode le mode de passe avant le traitement en BDD.
-     * @param user Le user.
-     */
     private void encodeMotDePasseUser(final User user){
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
     }

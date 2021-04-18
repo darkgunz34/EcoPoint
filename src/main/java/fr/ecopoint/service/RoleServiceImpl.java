@@ -8,26 +8,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 
-/**
- * Service en charge d'implémenter le CRUD Role.
- */
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    /**
-     * Le logger de la class.
-     */
     private static final Logger logger = LogManager.getLogger(RoleServiceImpl.class);
 
-    /**
-     * Interface pour le CRUD Role.
-     */
     private final RoleRepository roleRepository;
 
-    /**
-     * Constructeur du service.
-     * @param roleRepository  Interface pour le CRUD Role
-     */
     public RoleServiceImpl(final RoleRepository roleRepository){
         this.roleRepository = roleRepository;
     }
@@ -53,7 +40,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Boolean exit(final Role role){
+    public boolean exit(final Role role){
         return this.roleRepository.findByName(role.getName()) != null;
     }
 }

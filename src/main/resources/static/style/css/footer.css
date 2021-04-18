@@ -1,0 +1,131 @@
+@font-face {
+    font-family: "Futura Std bold";
+    src: url("../../../../../../../ecopoint_design/src/media/font/FuturaStd-Bold.woff");
+}
+
+body{
+    font-family: "Futura Std bold", serif;
+}
+
+footer{
+    background-color: #F5D772;
+    padding: 1%;
+}
+
+.eco{
+    display: flex;
+    justify-content: center;
+}
+
+.eco .bande{
+    border-bottom: white solid 1vh;
+    width: 10vw;
+    margin: 2vh 1vw;
+}
+
+.eco img{
+    width: 8vw;
+}
+
+.logo{
+    display: flex;
+    justify-content: space-evenly;
+    width: 20vw;
+    margin: 2vh auto;
+}
+
+.logo img{
+    width: 2vw;
+}
+
+footer .acme{
+    display: flex;
+    justify-content: space-around;
+    width: 50vw;
+    margin: 2vh auto;
+}
+
+.acme > a {
+    color: #524b25;
+    text-decoration: none;
+}
+
+.acme > a.v {
+    color: #58B482;
+    text-decoration: none;
+
+}
+
+footer .politique-droit{
+    display: flex;
+    justify-content: space-around;
+}
+
+.politique-droit > a {
+    color: white;
+    text-decoration: none;
+}
+
+.politique-droit > a.v {
+    color: #58B482;
+    text-decoration: none;
+}
+
+
+@media screen and (max-width: 1600px) {
+
+}
+
+@media screen and (max-width: 1024px) {
+    .logo img {
+        width: 4vw;
+    }
+    .eco img {
+        width: 13vw;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .eco img {
+        width: 25vw;
+    }
+    .eco .bande {
+        border-bottom: white solid 1vh;
+        width: 20vw;
+        margin: 2.5vh 1vw;
+    }
+    .logo img {
+        width: 10vw;
+    }
+    .logo {
+        display: flex;
+        justify-content: space-evenly;
+        width: 100vw;
+        margin: 2vh auto;
+    }
+    footer .acme {
+        width: 94vw;
+        margin: 2vh auto;
+    }
+    footer .politique-droit {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        text-align: center;
+        margin: 1vh;
+    }
+}
+
+@media screen and (max-width: 389px) {
+    footer .acme {
+        display: flex;
+        justify-content: space-around;
+        font-size: small;
+    }
+    .eco .bande {
+        border-bottom: white solid 1vh;
+        width: 20vw;
+        margin: 1.5vh 1vw;
+    }
+}
+

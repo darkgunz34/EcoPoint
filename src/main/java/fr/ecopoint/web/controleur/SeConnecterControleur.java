@@ -9,6 +9,7 @@ import fr.ecopoint.model.factory.FactoryRole;
 import fr.ecopoint.model.factory.FactoryUser;
 import fr.ecopoint.service.RoleService;
 import fr.ecopoint.service.UserService;
+import fr.ecopoint.web.Constante.Constante;
 import fr.ecopoint.web.dto.entities.UserLoginDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,70 +22,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Contrôleur d'inscription.
- * POST et GET
- */
 @Controller
 @RequestMapping("/seconnecter")
 public class SeConnecterControleur {
 
-    /**
-     * La page associé au contrôleur.
-     */
-    private static final String PAGE = "seconnecter";
-
-    /**
-     * Le logger de la class.
-     */
     private static final Logger logger = LogManager.getLogger(SeConnecterControleur.class);
-
-    /**
-     * Service pour la manipulation des données depuis la BDD pour les users.
-     */
     private final UserService userService;
-
-    /**
-     * Service pour la manipulation des données depuis la BDD pour les roles.
-     */
     private final RoleService roleService;
 
-    /**
-     * Constructeur par défaut.
-     * @param roleService Service pour la manipulation des données depuis la BDD pour les roles.
-     * @param userService Service pour la manipulation des données depuis la BDD pour les users.
-     */
     public SeConnecterControleur(final RoleService roleService, final UserService userService){
         this.roleService = roleService;
         this.userService = userService;
     }
 
-    /**
-     * Méthode pour instancier un userCreateLoginDto.
-     * @return Une nouvelle instance.
-     */
     @ModelAttribute("userLoginDto")
     public UserLoginDto userRegistrationDto() {
         return new UserLoginDto();
     }
 
-    /**
-     * Méthode GET du contrôleur.
-     * @return la page.
-     */
     @GetMapping
     public String getSeConnecter() {
         logger.debug("getSeConnecter()");
-        return PAGE;
+        return Constante.PAGE_CONNEXION;
     }
 
-    /**
-     * Méthode POST du contrôleur.
-     * @param model Le model pour y ajouter des données afficher dans la page / la redirection.
-     * @param userLoginDto Le user saisie par l'utilisateur.
-     * @param session La session pour ajouter des informations.
-     * @return L'url identique à l'inscription si une erreur est présente ou redirection vers la page d'accueil.
-     */
     @PostMapping
     public String postSeConnecter(final Model model, @ModelAttribute("userLoginDto") final UserLoginDto userLoginDto, final HttpSession session) {
         logger.debug("postSeConnecter()");
@@ -106,30 +67,25 @@ public class SeConnecterControleur {
                 User user = FactoryUser.getUserFromLogin(userLoginDto,role);
                 user = this.userService.findByMailAndPassword(user);
                 if (user!= null) {
-                    session.setAttribute("user", user);
-                    return "redirect:/accueil";
+                    session.setAttribute(Constante.USER_SESSION, user);
+                    return Constante.PAGE_REDIRECT_ACCEUIL;
                 }
             } catch (final UserException userException) {
                 logger.info(userException.getMessage());
                 model.addAttribute("erreurMauvaisCompte","Votre identifiant et votre mot de passe ne sont valide. Merci de les ressaisir");
             } catch (final Exception e) {
-                model.addAttribute("erreurInterne", "Une erreur interne est survenu. Merci de bien vouloir recommencer nous en excuser");
+                model.addAttribute(Constante.ERREUR_INTERNE, "Une erreur interne est survenu. Merci de bien vouloir recommencer nous en excuser");
                 logger.error("Erreur autre :".concat(e.getMessage()));
             }
         }else{
             model.addAttribute("erreurMauvaisCompte","Votre identifiant et votre mot de passe ne sont valide. Merci de les ressaisir");
         }
-        return PAGE;
+        return Constante.PAGE_CONNEXION;
     }
 
-    /**
-     * Méthode pour récupérer le role par défaut depuis la bdd s'il existe déjà.
-     * @return le Role par défaut depuis la bdd ou un nouveau si existant.
-     * @throws RoleException En cas d'erreur lors du traitement en BDD.
-     */
     private Role recuperationRole() throws RoleException {
         final Role role = FactoryRole.getRoleParDefault();
-        if (Boolean.TRUE.equals(this.roleService.exit(role))) {
+        if (this.roleService.exit(role)) {
             return this.roleService.findByName(role.getName());
         } else {
             logger.info("le role avec la valeur par défaut n'existe pas en bdd...");

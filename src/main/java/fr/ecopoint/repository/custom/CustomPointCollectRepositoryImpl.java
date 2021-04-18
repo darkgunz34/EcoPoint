@@ -10,16 +10,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-/**
- * CRUD Customisé implémenter.
- */
 @Repository
 @Transactional(readOnly = true)
 public class CustomPointCollectRepositoryImpl implements CustomPointCollectRepository{
 
-    /**
-     * Persistance Context de la BDD.
-     */
     @PersistenceContext
     private EntityManager em;
 
