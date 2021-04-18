@@ -4,8 +4,18 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>EcoPoint</title>
+
+    <link th:href="@{/style/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/map.css}" rel="stylesheet" />
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFUW-ukykKzEWyqXevA8MxnXsxgoO9iSY&callback=initMap&libraries=&v=weekly" defer></script>
+    <script th:src="@{/style/js/map.js}"></script>
 </head>
+
+<header th:include="template/header"></header>
 <body>
 <div>
     <p>ECO'POINT RÉCOMPENSE LES GESTES ÉCOLOGIQUES</p>
@@ -33,9 +43,9 @@
 <div>
     <p><strong>Où SE TROUVE LES BORNES COLLECTS ?</strong></p>
 </div>
-<div id="map">
-    <!-- Google map -->
-</div>
+
+<div id="map"></div>
+
 <div>
     <p><strong>Nos partenaires</strong></p>
     <div>
@@ -48,4 +58,5 @@
     </div>
 </div>
 </body>
+<footer th:include="template/footer"></footer>
 </html>

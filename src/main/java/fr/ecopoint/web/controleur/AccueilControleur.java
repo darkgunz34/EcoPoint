@@ -4,6 +4,7 @@ import fr.ecopoint.model.entities.PointCollect;
 import fr.ecopoint.model.entities.User;
 import fr.ecopoint.model.exception.PointException;
 import fr.ecopoint.service.PointCollectService;
+import fr.ecopoint.web.Constante.Constante;
 import fr.ecopoint.web.dto.entities.UserAccueilDto;
 import fr.ecopoint.web.dto.entities.factory.FactoryUserAccueilDto;
 import org.apache.logging.log4j.LogManager;
@@ -18,40 +19,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-/**
- * Contrôleur d'accueil.
- * GET
- */
 @Controller
 @RequestMapping("/accueil")
 public class AccueilControleur {
 
-    /**
-     * La page associé au contrôleur.
-     */
-    private static final String PAGE = "accueil";
-
-    /**
-     * Le logger de la class.
-     */
     private static final Logger logger = LogManager.getLogger(AccueilControleur.class);
-
-    /**
-     * Traitement des points associés à un utilisateur.
-     */
     private final PointCollectService pointCollectService;
 
     public AccueilControleur(final PointCollectService pointCollectService) {
         this.pointCollectService = pointCollectService;
     }
 
-    /**
-     * Méthode pour instancier un userCreateLoginDto.
-     * @return Une nouvelle instance.
-     */
     @ModelAttribute("userAccueilDto")
     public UserAccueilDto userRegistrationDto(@NotNull final HttpSession session) {
-        final User user = (User) session.getAttribute("user");
+        final User user = (User) session.getAttribute(Constante.USER_SESSION);
         if (user != null) {
             int total = 0;
             try{
@@ -69,6 +50,6 @@ public class AccueilControleur {
     public String getAccueil(final Model model, final HttpServletRequest req){
         logger.debug("getAccueil");
         logger.debug(req.getHeader("User-Agent"));
-        return PAGE;
+        return Constante.PAGE_ACCEUIL;
     }
 }

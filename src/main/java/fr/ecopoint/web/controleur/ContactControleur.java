@@ -6,6 +6,7 @@ import fr.ecopoint.model.exception.ContactException;
 import fr.ecopoint.model.exception.MessageEx;
 import fr.ecopoint.model.factory.FactoryContact;
 import fr.ecopoint.model.service.ContactService;
+import fr.ecopoint.web.Constante.Constante;
 import fr.ecopoint.web.dto.entities.ContactDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,62 +17,28 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- * Contrôleur d'inscription.
- * POST et GET
- */
 @Controller
 @RequestMapping("/contact")
 public class ContactControleur {
 
-    /**
-     * La page associé au contrôleur.
-     */
-    private static final String PAGE = "contact";
-
-    /**
-     * Le logger de la class.
-     */
     private static final Logger logger = LogManager.getLogger(ContactControleur.class);
-
-    /**
-     * Service pour la manipulation des données depuis la BDD pour les contacts.
-     */
     private final ContactService contactService;
 
-    /**
-     * Constructeur par défaut.
-     * @param contactService Service pour la manipulation des données depuis la BDD pour les contacts.
-     */
-    public ContactControleur(final ContactService contactService){
+    public ContactControleur(final ContactService contactService) {
         this.contactService = contactService;
     }
 
-    /**
-     * Méthode pour instancier un contactDto.
-     * @return Une nouvelle instance.
-     */
     @ModelAttribute("contactDto")
     public ContactDto contactDto() {
         return new ContactDto();
     }
 
-    /**
-     * Méthode GET du contrôleur.
-     * @return la page.
-     */
     @GetMapping
     public String getContact() {
         logger.debug("getContact()");
-        return PAGE;
+        return Constante.PAGE_CONTACT;
     }
 
-    /**
-     * Méthode POST du contrôleur.
-     * @param model Le model pour y ajouter des données afficher dans la page / la redirection.
-     * @param contactDto Le user saisie par l'utilisateur.
-     * @return L'url identique à l'inscription si une erreur est présente ou redirection vers la page d'accueil.
-     */
     @PostMapping
     public String postContact(final Model model, @ModelAttribute("contactDto") final ContactDto contactDto) {
         logger.debug("postContact()");
@@ -101,13 +68,13 @@ public class ContactControleur {
             try {
                 final Contact contact = FactoryContact.getContactAvecParam(contactDto);
                 if (this.contactService.save(contact)) {
-                    model.addAttribute("message", "Votre demande a bien été prise en compte. Un administrateur se charge de");
-                    return "index";
+                    model.addAttribute(Constante.MODEL_MESSAGE, "Votre demande a bien été prise en compte. Un administrateur se charge de");
+                    return Constante.PAGE_ACCEUIL;
                 } else {
                     throw new ContactException(MessageEx.MESSAGE_EXCEPTION_ERREUR_INTERNE);
                 }
             } catch (final ContactException contactException) {
-                model.addAttribute("erreurInterne", contactException.getMessage());
+                model.addAttribute(Constante.ERREUR_INTERNE, contactException.getMessage());
                 logger.error("Erreur durant le traitement des données du contact :".concat(contactException.getMessage()));
             }
         }
@@ -115,6 +82,6 @@ public class ContactControleur {
         model.addAttribute("valeur_objet", contactDto.getObjet());
         model.addAttribute("valeur_nom", contactDto.getNom());
         model.addAttribute("valeur_message", contactDto.getMessage());
-        return PAGE;
+        return Constante.PAGE_CONTACT;
     }
-    }
+}

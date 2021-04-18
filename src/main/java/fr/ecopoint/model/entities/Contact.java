@@ -8,9 +8,6 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
-/**
- * Entité en charge de l'ensemble des données de contact pour l'administration.
- */
 @Entity
 @Table
 @FieldDefaults(level = AccessLevel.PRIVATE)
