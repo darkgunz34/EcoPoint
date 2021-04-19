@@ -53,19 +53,4 @@ public class UserRegistrationDto {
     @Setter
     @NotEmpty
     String ville;
-
-    @Override
-    public String toString() {
-        return "UserRegistrationDto{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", mail='" + mail + '\'' +
-                ", motDePasse='" + motDePasse + '\'' +
-                ", motDePasse2='" + motDePasse2 + '\'' +
-                ", rue='" + rue + '\'' +
-                ", codePostal='" + codePostal + '\'' +
-                ", ville='" + ville + '\'' +
-                '}';
-    }
 }

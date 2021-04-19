@@ -9,7 +9,7 @@ public interface UserService{
 
     User findByMailAndPassword(final User user) throws UserException;
 
-    boolean save(final User user);
+    boolean save(final User user,boolean updatePassword);
 
     boolean exit(final User user);
 
