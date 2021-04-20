@@ -54,14 +54,14 @@
         </div>
     </form>
 
-    <form>
+    <form th:action="@{/mesinformations/passwordupdate}" th:object="${passwordModificationDto}" method="post">
         <div>
             <label for="mdp">Nouveau mot de passe :</label>
-            <input id="mdp" type="password" placeholder="Nouveau mot de passe" name="mdp"/>
+            <input id="mdp" type="password" placeholder="Nouveau mot de passe" name="motDePasse"/>
         </div>
         <div>
             <label for="confirm_mdp">Confirmation mot de passe :</label>
-            <input id="confirm_mdp" type="password" placeholder="Confirmation de nouveau mot de passe" name="confirm_mdp"/>
+            <input id="confirm_mdp" type="password" placeholder="Confirmation de nouveau mot de passe" name="confirmationMotDePasse"/>
         </div>
         <div>
             <input type="submit" value="Modifier mon mot de passe">

@@ -8,6 +8,7 @@ import fr.ecopoint.model.factory.FactoryAdresse;
 import fr.ecopoint.model.factory.FactoryUser;
 import fr.ecopoint.service.UserService;
 import fr.ecopoint.web.Constante.Constante;
+import fr.ecopoint.web.dto.entities.PasswordModificationDto;
 import fr.ecopoint.web.dto.entities.UserModificationDto;
 import fr.ecopoint.web.tools.Utils;
 import org.apache.logging.log4j.LogManager;
@@ -36,6 +37,11 @@ public class MesInformationControleur {
     @ModelAttribute("userModificationDto")
     public UserModificationDto userModificationDto() {
         return new UserModificationDto();
+    }
+
+    @ModelAttribute("passwordModificationDto")
+    public PasswordModificationDto passwordModificationDto() {
+        return new PasswordModificationDto();
     }
 
     @GetMapping
@@ -90,7 +96,17 @@ public class MesInformationControleur {
         return Constante.PAGE_MES_INFORMATIONS;
     }
 
-
+    @PostMapping("/passwordupdate")
+    private String postUpdatePassword(final HttpSession session,final Model model,@ModelAttribute("passwordModificationDto") final PasswordModificationDto passwordModificationDto){
+        logger.debug("postUpdatePassword");
+        User user = (User) session.getAttribute(Constante.USER_SESSION);
+        if (user != null && passwordModificationDto.getMotDePasse().equals(passwordModificationDto.getConfirmationMotDePasse())) {
+            user.setPassword(passwordModificationDto.getMotDePasse());
+            this.userService.save(user, true);
+            model.addAttribute(Constante.MODEL_MESSAGE, "Votre mot de passe à bien été enregister.");
+        }
+        return Constante.PAGE_REDIRECT_ACCEUIL;
+    }
 
     @GetMapping("/ConfirmationSupression")
     private String suppressionCompte(final HttpSession session,final Model model){
