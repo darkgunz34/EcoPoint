@@ -47,9 +47,11 @@ public class AccueilControleur {
     }
 
     @GetMapping
-    public String getAccueil(final Model model, final HttpServletRequest req){
+    public String getAccueil(final Model model, final HttpServletRequest req, final HttpSession session){
         logger.debug("getAccueil");
         logger.debug(req.getHeader("User-Agent"));
+        model.addAttribute(Constante.MODEL_MESSAGE,session.getAttribute(Constante.MODEL_MESSAGE));
+        session.removeAttribute(Constante.MODEL_MESSAGE);
         return Constante.PAGE_ACCEUIL;
     }
 }

@@ -22,7 +22,7 @@ public class SeDeconnecter {
     public String getSeDeconnecter(final Model model,final HttpSession session) {
         logger.debug("getSeDeconnecter()");
         session.removeAttribute(Constante.USER_SESSION);
-        model.addAttribute(Constante.MODEL_MESSAGE, "Vous être à présent déconnecter");
+        session.setAttribute(Constante.MODEL_MESSAGE, "Vous être à présent déconnecter");
         return Constante.PAGE_REDIRECT_ACCEUIL;
     }
 }
