@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/contact")
 public class ContactControleur {
@@ -40,7 +42,7 @@ public class ContactControleur {
     }
 
     @PostMapping
-    public String postContact(final Model model, @ModelAttribute("contactDto") final ContactDto contactDto) {
+    public String postContact(final Model model, @ModelAttribute("contactDto") final ContactDto contactDto, final HttpSession session) {
         logger.debug("postContact()");
         boolean valide = true;
         if (contactDto.getNom() == null || contactDto.getNom().trim().isEmpty()) {
@@ -68,7 +70,7 @@ public class ContactControleur {
             try {
                 final Contact contact = FactoryContact.getContactAvecParam(contactDto);
                 if (this.contactService.save(contact)) {
-                    model.addAttribute(Constante.MODEL_MESSAGE, "Votre demande a bien été prise en compte. Un administrateur se charge de");
+                    session.setAttribute(Constante.MODEL_MESSAGE, "Votre demande a bien été prise en compte. Un administrateur se charge de");
                     return Constante.PAGE_ACCEUIL;
                 } else {
                     throw new ContactException(MessageEx.MESSAGE_EXCEPTION_ERREUR_INTERNE);

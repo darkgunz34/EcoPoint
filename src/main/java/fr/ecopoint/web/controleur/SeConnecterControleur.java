@@ -68,6 +68,7 @@ public class SeConnecterControleur {
                 user = this.userService.findByMailAndPassword(user);
                 if (user!= null) {
                     session.setAttribute(Constante.USER_SESSION, user);
+                    session.setAttribute(Constante.MODEL_MESSAGE,"Bienvenue de retour parmis nous !");
                     return Constante.PAGE_REDIRECT_ACCEUIL;
                 }
             } catch (final UserException userException) {

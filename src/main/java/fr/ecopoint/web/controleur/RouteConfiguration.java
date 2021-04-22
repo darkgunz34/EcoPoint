@@ -14,10 +14,14 @@ public class RouteConfiguration implements WebMvcConfigurer {
     }
 
     private void affichagePageUtilisateur(final ViewControllerRegistry registry){
-        registry.addViewController("/").setViewName("accueil");
+        registry.addRedirectViewController("/","/accueil");
         registry.addViewController("/accueil").setViewName("accueil");
         registry.addViewController("/inscription").setViewName("inscription");
         registry.addViewController("/seconnecter").setViewName("seconnecter");
+        registry.addViewController("/sedeconnecter").setViewName("sedeconnecter");
         registry.addViewController("/contact").setViewName("contact");
+        registry.addViewController("/utilisateur/mesinformations").setViewName("mesinformations");
+        registry.addViewController("mesinformations/ConfirmationSupression");
+        registry.addViewController("mesinformations/passwordupdate");
     }
 }

@@ -11,7 +11,7 @@ public interface UserService{
 
     User findByPseudoAndPassword(final String pseudo,final String password) throws UserException;
 
-    boolean save(final User user);
+    boolean save(final User user,boolean updatePassword);
 
     boolean exit(final User user);
 

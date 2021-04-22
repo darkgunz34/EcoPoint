@@ -7,21 +7,17 @@ import fr.ecopoint.model.exception.RoleException;
 import fr.ecopoint.model.exception.UserException;
 import fr.ecopoint.model.entities.User;
 import fr.ecopoint.web.dto.entities.UserLoginDto;
+import fr.ecopoint.web.dto.entities.UserModificationDto;
 import fr.ecopoint.web.dto.entities.UserRegistrationDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public final class FactoryUser {
 
-    private static final Logger logger = LogManager.getLogger(FactoryUser.class);
-
     private FactoryUser(){
     }
 
     public static User getUserFromCreation(final UserRegistrationDto userRegistrationDto, final Role role) throws UserException, RoleException {
-        final String sb = "Création de user avec les paramètres suivants : " + userRegistrationDto.toString() + " et " + role.toString();
-        logger.debug(sb);
-
         if(valideNonNullMotDePasse(userRegistrationDto.getMotDePasse(), userRegistrationDto.getMotDePasse2())){
             throw new UserException(MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
         }
@@ -56,7 +52,7 @@ public final class FactoryUser {
             throw new UserException(MessageEx.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
         }
 
-        if(!champNonVide(userLoginDto.getMotDePasse())){
+        if(champNonVide(userLoginDto.getMotDePasse())){
             throw new UserException(MessageEx.MESSAGE_EXCEPTION_IDENTIFICANT_CONNEXION);
         }
 
@@ -89,5 +85,27 @@ public final class FactoryUser {
 
     private static boolean valideNonMail(final String mail){
         return !(!champNonVide(mail) && mail.matches(UserConstante.REGEX_VALIDATION_MAL));
+    }
+
+    public static void getUserFromUpdate(User user, UserModificationDto userModificationDto) throws UserException{
+        if(valideNonMail(userModificationDto.getMail())){
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_MAIL);
+        }
+        if(valideNonTelephone(userModificationDto.getTelephone())){
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_TELEPHONE);
+        }
+
+        if(champNonVide(userModificationDto.getNom())){
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_NOM);
+        }
+
+        if(champNonVide(userModificationDto.getPrenom())){
+            throw new UserException(MessageEx.MESSAGE_EXCEPTION_PRENOM);
+        }
+
+        user.setMail(userModificationDto.getMail());
+        user.setTelephone(userModificationDto.getTelephone());
+        user.setNom(userModificationDto.getNom());
+        user.setPrenom(userModificationDto.getPrenom());
     }
 }

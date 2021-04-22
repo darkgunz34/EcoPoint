@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean save(final User user) {
+    public boolean save(final User user,boolean updatePassword) {
         if(Boolean.FALSE.equals(this.roleService.exit(user.getRole()))){
             if(this.roleService.save(user.getRole())){
                 logger.debug("Sauvegarde du role avec succès");
@@ -67,7 +67,9 @@ public class UserServiceImpl implements UserService {
                 logger.error("Ajout du role impossible : {}",user.getRole());
             }
         }
-        this.encodeMotDePasseUser(user);
+        if(updatePassword){
+            this.encodeMotDePasseUser(user);
+        }
         this.userRepository.save(user);
         logger.debug("Sauvegarde du user avec succès");
         return this.exit(user);
