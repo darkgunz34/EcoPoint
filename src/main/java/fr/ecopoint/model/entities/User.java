@@ -78,6 +78,14 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public void ajouterArticleListe(ArticleUser articleUser){
+        this.lstArticleUser.add(articleUser);
+    }
+
+    public void supprimerArticleListe(ArticleUser articleUser){
+        this.lstArticleUser.remove(articleUser);
+    }
+
     @Override
     public String toString() {
         return "User{" +

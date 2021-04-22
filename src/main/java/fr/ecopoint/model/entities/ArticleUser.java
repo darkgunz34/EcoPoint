@@ -38,4 +38,11 @@ public class ArticleUser implements Serializable {
     @Getter
     @Setter
     boolean jeter;
+
+    public ArticleUser(LocalDate dateAchat, Article article, PointCollect pointCollect) {
+        this.dateAchat = dateAchat;
+        this.article = article;
+        this.pointCollect = pointCollect;
+        this.jeter = false;
+    }
 }

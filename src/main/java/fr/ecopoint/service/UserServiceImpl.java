@@ -8,6 +8,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -42,12 +44,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByPseudoAndPassword(final String mail,final String password) throws UserException {
         User userFromDataBase = this.userRepository.findByPseudo(mail);
-        if (this.passwordEncoder.matches(password, userFromDataBase.getPassword())) {
+        if (userFromDataBase != null && this.passwordEncoder.matches(password, userFromDataBase.getPassword())) {
             return userFromDataBase;
         } else {
             throw new UserException("Erreur, le compte n'existe pas ou le mot de passe n'est pas valide");
         }
     }
+
+    @Override
+    public User readFromKey(final long key) {
+        if(this.exist(key)){
+            final Optional<User> user = this.userRepository.findById(key);
+            if(user.isPresent()){
+                return user.get();
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean exist(final long key){
+        return this.userRepository.findById(key).isPresent();
+    }
+
     @Override
     public User findByMailAndPassword(final String mail,final String password) throws UserException {
         User userFromDataBase = this.userRepository.findByMail(mail);

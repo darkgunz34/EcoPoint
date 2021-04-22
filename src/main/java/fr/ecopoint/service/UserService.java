@@ -11,10 +11,13 @@ public interface UserService{
 
     User findByPseudoAndPassword(final String pseudo,final String password) throws UserException;
 
+    User readFromKey(long id);
+
     boolean save(final User user,boolean updatePassword);
 
     boolean exit(final User user);
 
     boolean delete(final User user);
 
+    boolean exist(long key);
 }

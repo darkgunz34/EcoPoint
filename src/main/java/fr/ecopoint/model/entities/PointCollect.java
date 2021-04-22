@@ -5,12 +5,10 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString(of = {"id","date","nombrePoint"})
 public class PointCollect implements Serializable {
 
     @Id
@@ -21,6 +19,7 @@ public class PointCollect implements Serializable {
     @Getter
     int nombrePoint;
 
-    @Getter
-    LocalDateTime date;
+    public PointCollect(int nombrePoint) {
+        this.nombrePoint = nombrePoint;
+    }
 }

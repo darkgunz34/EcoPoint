@@ -63,9 +63,7 @@ public class SeConnecterControleur {
 
         if (valide) {
             try {
-                final Role role = this.recuperationRole();
-                User user = FactoryUser.getUserFromLogin(userLoginDto,role);
-                user = this.userService.findByMailAndPassword(user);
+                User user = this.userService.findByMailAndPassword(userLoginDto.getMail(),userLoginDto.getMotDePasse());
                 if (user!= null) {
                     session.setAttribute(Constante.USER_SESSION, user);
                     session.setAttribute(Constante.MODEL_MESSAGE,"Bienvenue de retour parmis nous !");

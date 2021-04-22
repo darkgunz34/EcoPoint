@@ -25,6 +25,10 @@ public class Article implements Serializable {
 
     @Getter
     @Setter
+    String code;
+
+    @Getter
+    @Setter
     String description;
 
     @Getter
@@ -40,4 +44,10 @@ public class Article implements Serializable {
     //if true visible pour les user sinon a valider par un admin
     @Getter
     boolean visiblePourUser;
+
+    public Article(String nomArticle, String code, double prixApproximatif) {
+        this.nomArticle = nomArticle;
+        this.code = code;
+        this.prixApproximatif = prixApproximatif;
+    }
 }
