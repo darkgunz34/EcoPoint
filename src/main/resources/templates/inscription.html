@@ -8,66 +8,74 @@
 
     <link th:href="@{/style/css/header.css}" rel="stylesheet" />
     <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/inscription.css}" rel="stylesheet" />
 </head>
 <header th:include="template/header"></header>
 <body>
+<div class="css_bandeau_wave">
+    <h2 id="css_h2">Créer un compte</h2>
+    <p>Vous avez déjà un compte ? <a href="seconnecter">Se connecter</a></p>
+</div>
 <main>
-    <h2>Inscription</h2>
-    <form th:action="@{/inscription}" th:object="${userCreateLoginDto}" method="post">
+    <form th:action="@{/inscription}" th:object="${userCreateLoginDto}" method="post" class="css_form">
         <div th:text="${erreurInterne}"></div>
-        <div>
-            <div>
-                <label for="nom">Nom : *</label>
-                <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
+        <div class="css_ajustement_de_comportement">
+            <div class="css_form_label_input_nom">
+                <label for="nom">Nom : </label>
+                <input type="text" id="nom" th:value="${valeur_nom}" required/>
                 <div th:text="${erreurNom}"></div>
             </div>
-            <div>
-                <label for="prenom">Prénom : *</label>
-                <input type="text" name="prenom" placeholder="Votre prénom" id="prenom" th:value="${valeur_prenom}" required/>
+            <div class="css_form_label_input_prenom">
+                <label for="prenom">Prénom : </label>
+                <input type="text" id="prenom" th:value="${valeur_prenom}" required/>
                 <div th:text="${erreurPrenom}"></div>
             </div>
-            <div>
-                <label for="telephone">Téléphone : *</label>
-                <input type="tel" name="telephone" placeholder="0601010101" id="telephone" th:value="${valeur_telephone}" required/>
-                <div th:text="${erreurTelephone}"></div>
-            </div>
-            <div>
-                <label>Mail : *
-                    <input type="text" name="mail" placeholder="contact@ecopoint.fr" th:value="${valeur_mail}" required/>
-                </label>
-                <div th:text="${erreurMail}"></div>
-            </div>
-            <div>
-                <label for="motDePasse">Mot de passe : *</label>
-                <input type="password" name="motDePasse" placeholder="***********" id="motDePasse" required/>
-                <div th:text="${erreurMotDePasse}"></div>
-            </div>
-            <div>
-                <label>Confirmation mot de passe : *
-                    <input type="password" name="MotDePasse2" placeholder="***********" required/>
-                </label>
-                <div th:text="${erreurMotDePasse2}"></div>
-            </div>
+        </div>
+        <div class="css_form_label_input">
+            <label for="telephone">Téléphone : </label>
+            <input type="tel" id="telephone" th:value="${valeur_telephone}" required/>
+            <div th:text="${erreurTelephone}"></div>
+        </div>
+        <div class="css_form_label_input">
+            <label for="mail">E-mail : </label>
+            <input type="email" placeholder="E-mail" id="mail" th:value="${valeur_mail}" required/>
+            <div th:text="${erreurMail}"></div>
+        </div>
+        <div class="css_form_label_input">
+            <label for="motDePasse">Mot de passe : </label>
+            <input type="password" placeholder="***********" id="motDePasse" required/>
+        </div>
+        <div class="css_form_label_input">
+            <label for="motDePasse2">Confirmation<br /> mot de passe : </label>
+            <input type="password" placeholder="***********" id="motDePasse2" required/>
+        </div>
+
+        <div class="css_form_label_input">
+            <label for="adresse">Adresse : </label>
+            <input type="text" placeholder="Adresse" id="adresse" th:value="${valeur_rue}"/>
+        </div>
+        <div class="css_form_label_input">
+            <label for="code_postal">Code postal :</label>
+            <input id="code_postal" type="number" name="code_postal" th:value="${valeur_code_postal}"/>
+        </div>
+        <div class="css_form_label_input">
+            <label for="ville">Ville :</label>
+            <input id="ville" type="text" placeholder="Ville" name="ville" th:value="${valeur_ville}"/>
         </div>
         <div>
-            <div>
-                <label>Votre adresse :
-                    <input type="text" name="rue" placeholder="Votre adresse" th:value="${valeur_rue}"/>
-                </label>
-                </div>
-            <div>
-                <label>Votre code postal :
-                    <input type="text" name="codePostal" placeholder="Le code postal" th:value="${valeur_code_postal}"/>
-                </label>
-            </div>
-            <div>
-                <label>Votre ville :
-                    <input type="text" name="ville" placeholder="Votre ville" th:value="${valeur_ville}"/>
-                </label>
-            </div>
+            <input type="checkbox" id="engagement" name="engagement">
+            <label for="engagement" id="text_coche">
+                Nous vous enverrons régulièrement des e-mails avec des offres concernant nos services.<br />
+                Vous pouvez vous désinscrire de ces e-mails marketing en tout temps,<br />
+                sans frais, en cliquant sur le lien inclus dans les e-mails.<br />
+            </label>
         </div>
-        <div>
-            <input type="submit" value="S'inscrire">
+        <p>
+            En cliquant sur S’inscrire, vous confirmez avoir lu et accepté les <a href="#">Conditions d’utilisation</a>. <br />
+            Veuillez vous référer à notre Avis sur les données personnelles pour toute information concernant le traitement de vos données.
+        </p>
+        <div class ="css_ajustement_position_button">
+            <input type="submit" value="S'inscrire" class="css_button">
         </div>
     </form>
 </main>
