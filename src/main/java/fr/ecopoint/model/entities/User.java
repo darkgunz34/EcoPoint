@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -47,10 +48,16 @@ public class User implements Serializable {
     @Setter
     Role role;
 
+    //Inutile pour le moment. Attention au front page accueil
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @Getter
     @Setter
     private List<PointCollect> lstPointsCollect;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Getter
+    @Setter
+    private List<ArticleUser> lstArticleUser = new ArrayList<>();
 
     public User(final String mail, final String motDePasse, final String nom, final String prenom, final String telephone, final Role role) {
         this.mail = mail;
@@ -79,6 +86,7 @@ public class User implements Serializable {
                 ", adresse=" + adresse +
                 ", role=" + role +
                 ", lstPointsCollect=" + lstPointsCollect +
+                ", lstArticleUser=" + lstArticleUser +
                 '}';
     }
 }
