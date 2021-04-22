@@ -72,8 +72,8 @@ public class MesInformationControleur {
             Adresse adresse = FactoryAdresse.getAdresseFromUpdate(user,userModificationDto);
             user.setAdresse(adresse);
             if (this.userService.exit(user) && this.userService.save(user,false)) {
-                session.setAttribute(Constante.MODEL_MESSAGE,"Vos données ont bien été modifier.");
-                return Constante.PAGE_REDIRECT_ACCEUIL;
+              session.setAttribute(Constante.MODEL_MESSAGE,"Vos données ont bien été modifier.");
+              return Constante.PAGE_REDIRECT_ACCEUIL;
             } else {
                 throw new UserException(MessageEx.MESSAGE_EXCEPTION_ERREUR_INTERNE);
             }
