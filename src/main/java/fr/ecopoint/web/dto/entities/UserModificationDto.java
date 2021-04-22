@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserRegistrationDto {
+public class UserModificationDto {
 
     @Getter
     @Setter
@@ -28,16 +28,6 @@ public class UserRegistrationDto {
     @Setter
     @NotEmpty
     String mail;
-
-    @Getter
-    @Setter
-    @NotEmpty
-    String motDePasse;
-
-    @Getter
-    @Setter
-    @NotEmpty
-    String motDePasse2;
 
     @Getter
     @Setter

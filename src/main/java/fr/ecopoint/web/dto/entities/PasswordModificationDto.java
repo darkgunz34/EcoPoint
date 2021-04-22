@@ -7,26 +7,15 @@ import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString(of = {"rue","codePostal","ville","pays"})
-public class AdresseRegistrationDto {
+public class PasswordModificationDto {
 
     @Getter
     @Setter
     @NotEmpty
-    String rue;
+    String motDePasse;
 
     @Getter
     @Setter
     @NotEmpty
-    String codePostal;
-
-    @Getter
-    @Setter
-    @NotEmpty
-    String ville;
-
-    @Getter
-    @Setter
-    @NotEmpty
-    String pays;
+    String confirmationMotDePasse;
 }

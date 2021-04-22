@@ -15,7 +15,6 @@
     <h2>Inscription</h2>
     <form th:action="@{/inscription}" th:object="${userCreateLoginDto}" method="post">
         <div th:text="${erreurInterne}"></div>
-
         <div>
             <div>
                 <label for="nom">Nom : *</label>

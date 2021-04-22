@@ -16,6 +16,7 @@ import fr.ecopoint.service.RoleService;
 import fr.ecopoint.service.UserService;
 import fr.ecopoint.web.Constante.Constante;
 import fr.ecopoint.web.dto.entities.UserRegistrationDto;
+import fr.ecopoint.web.tools.Utils;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -72,13 +73,13 @@ public class InscriptionControleur {
     @PostMapping
     public String postInscription(final Model model, @ModelAttribute("userCreateLoginDto") final UserRegistrationDto userRegistrationDto, final HttpSession session) {
         logger.debug("postInscription()");
-        valideDonnee(model,userRegistrationDto);
+        Utils.valideUserRegistrationDto(model,userRegistrationDto);
         try {
             final Role role = this.recuperationRole();
             final User user = FactoryUser.getUserFromCreation(userRegistrationDto, role);
             final Adresse adresse = FactoryAdresse.getAdresseFromCreation(userRegistrationDto);
             user.setAdresse(adresse);
-            if (mailUtile.envoyerMailInscription(user) && !this.userService.exit(user) && this.userService.save(user)) {
+            if (mailUtile.envoyerMailInscription(user) && !this.userService.exit(user) && this.userService.save(user,true)) {
                 session.setAttribute("user", user);
                 model.addAttribute("message", "Consulter vos mails afin d'activer votre compte");
                 return Constante.PAGE_REDIRECT_ACCEUIL;
@@ -119,30 +120,5 @@ public class InscriptionControleur {
         }
     }
 
-    private void valideDonnee(final Model model, final UserRegistrationDto userRegistrationDto){
-        if (userRegistrationDto.getMotDePasse() == null || userRegistrationDto.getMotDePasse().trim().isEmpty()) {
-            model.addAttribute("erreurMotDePasse", MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
-            logger.debug(MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE_VIDE);
-        }
-        if (!userRegistrationDto.getMotDePasse().equals(userRegistrationDto.getMotDePasse2())) {
-            model.addAttribute("erreurMotDePasse2", MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE);
-            logger.debug(MessageEx.MESSAGE_EXCEPTION_MOT_DE_PASSE);
-        }
-        if (userRegistrationDto.getMail() == null || !userRegistrationDto.getMail().matches(UserConstante.REGEX_VALIDATION_MAL)) {
-            model.addAttribute("erreurMail", MessageEx.MESSAGE_EXCEPTION_MAIL);
-            logger.debug(MessageEx.MESSAGE_EXCEPTION_MAIL);
-        }
-        if (userRegistrationDto.getTelephone() == null || !userRegistrationDto.getTelephone().matches(UserConstante.REGEX_VALIDATION_TEL)) {
-            model.addAttribute("erreurTelephone", MessageEx.MESSAGE_EXCEPTION_TELEPHONE);
-            logger.debug(MessageEx.MESSAGE_EXCEPTION_TELEPHONE);
-        }
-        if (userRegistrationDto.getNom() == null || userRegistrationDto.getNom().trim().isEmpty()) {
-            model.addAttribute("erreurNom", MessageEx.MESSAGE_EXCEPTION_NOM);
-            logger.debug(MessageEx.MESSAGE_EXCEPTION_NOM);
-        }
-        if (userRegistrationDto.getPrenom() == null || userRegistrationDto.getPrenom().trim().isEmpty()) {
-            model.addAttribute("erreurPrenom", MessageEx.MESSAGE_EXCEPTION_PRENOM);
-            logger.debug(MessageEx.MESSAGE_EXCEPTION_PRENOM);
-        }
-    }
+
 }
