@@ -54,6 +54,7 @@ public class InscriptionControleur {
         model.addAttribute("valeur_mail", "stephan.parichon.pro@gmail.com");
         model.addAttribute("valeur_telephone", "0645606439");
         model.addAttribute("valeur_nom", "Parichon");
+        model.addAttribute("valeur_pseudo", "stephan");
         model.addAttribute("valeur_prenom", "Stéphan");
         model.addAttribute("valeur_rue", "84 Allée de Camargue");
         model.addAttribute("valeur_code_postal", "34400");
@@ -103,6 +104,7 @@ public class InscriptionControleur {
         model.addAttribute("valeur_telephone", userRegistrationDto.getTelephone());
         model.addAttribute("valeur_nom", userRegistrationDto.getNom());
         model.addAttribute("valeur_prenom", userRegistrationDto.getPrenom());
+        model.addAttribute("valeur_pseudo", userRegistrationDto.getPseudo());
         model.addAttribute("valeur_rue", userRegistrationDto.getRue());
         model.addAttribute("valeur_code_postal", userRegistrationDto.getCodePostal());
         model.addAttribute("valeur_ville", userRegistrationDto.getVille());

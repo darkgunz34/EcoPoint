@@ -19,6 +19,10 @@ public class User implements Serializable {
 
     @Getter
     @Setter
+    String pseudo;
+
+    @Getter
+    @Setter
     String mail;
 
     @Getter

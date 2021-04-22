@@ -32,6 +32,11 @@ public class UserRegistrationDto {
     @Getter
     @Setter
     @NotEmpty
+    String pseudo;
+
+    @Getter
+    @Setter
+    @NotEmpty
     String motDePasse;
 
     @Getter
@@ -61,6 +66,7 @@ public class UserRegistrationDto {
                 ", prenom='" + prenom + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", mail='" + mail + '\'' +
+                ", pseudo='" + pseudo + '\'' +
                 ", motDePasse='" + motDePasse + '\'' +
                 ", motDePasse2='" + motDePasse2 + '\'' +
                 ", rue='" + rue + '\'' +

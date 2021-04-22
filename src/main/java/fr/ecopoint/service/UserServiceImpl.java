@@ -40,21 +40,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByMailAndPassword(final User user) throws UserException {
-        logger.debug("Recherche un user avec le mail : {} et le mot de passe : {}",user.getMail(),user.getPassword());
-        final User userFromDataBase = this.userRepository.findByMail(user.getMail());
-        if(userFromDataBase != null){
-            if(this.passwordEncoder.matches(user.getPassword(),userFromDataBase.getPassword())){
-                logger.debug("Recherche un user avec le mail réaliser avec succès");
-                return userFromDataBase;
-            }else{
-                logger.debug("Le compte associé n'existe pas ces paramètres");
-                throw new UserException("Erreur, le mot de passe n'est pas identique.");
-            }
+    public User findByPseudoAndPassword(final String mail,final String password) throws UserException {
+        User userFromDataBase = this.userRepository.findByPseudo(mail);
+        if (this.passwordEncoder.matches(password, userFromDataBase.getPassword())) {
+            return userFromDataBase;
+        } else {
+            throw new UserException("Erreur, le compte n'existe pas ou le mot de passe n'est pas valide");
         }
-        else{
-            logger.debug("Le compte associé n'existe pas ces paramètres");
-            throw new UserException("Erreur, tentative de recherche de compte échouer.");
+    }
+    @Override
+    public User findByMailAndPassword(final String mail,final String password) throws UserException {
+        User userFromDataBase = this.userRepository.findByMail(mail);
+        if (this.passwordEncoder.matches(password, userFromDataBase.getPassword())) {
+            return userFromDataBase;
+        } else {
+            throw new UserException("Erreur, le compte n'existe pas ou le mot de passe n'est pas valide");
         }
     }
 

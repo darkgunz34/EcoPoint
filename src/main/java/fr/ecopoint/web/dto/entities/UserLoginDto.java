@@ -7,7 +7,6 @@ import javax.validation.constraints.NotEmpty;
 
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@ToString(of = {"mail","motDePasse"})
 public class UserLoginDto {
 
     @Getter

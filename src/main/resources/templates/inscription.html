@@ -28,6 +28,11 @@
                 <div th:text="${erreurPrenom}"></div>
             </div>
             <div>
+                <label for="pseudo">Pseudo : *</label>
+                <input type="text" name="pseudo" placeholder="Votre prénom" id="pseudo" th:value="${valeur_pseudo}" required/>
+                <div th:text="${erreurPrenom}"></div>
+            </div>
+            <div>
                 <label for="telephone">Téléphone : *</label>
                 <input type="tel" name="telephone" placeholder="0601010101" id="telephone" th:value="${valeur_telephone}" required/>
                 <div th:text="${erreurTelephone}"></div>
