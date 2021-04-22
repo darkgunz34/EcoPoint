@@ -72,8 +72,8 @@ public class MesInformationControleur {
             Adresse adresse = FactoryAdresse.getAdresseFromUpdate(user,userModificationDto);
             user.setAdresse(adresse);
             if (this.userService.exit(user) && this.userService.save(user,false)) {
-                model.addAttribute(Constante.MODEL_MESSAGE,"Vos données ont bien été modifier.");
-                return Constante.PAGE_REDIRECT_ACCEUIL;
+              session.setAttribute(Constante.MODEL_MESSAGE,"Vos données ont bien été modifier.");
+              return Constante.PAGE_REDIRECT_ACCEUIL;
             } else {
                 throw new UserException(MessageEx.MESSAGE_EXCEPTION_ERREUR_INTERNE);
             }
@@ -103,7 +103,7 @@ public class MesInformationControleur {
         if (user != null && passwordModificationDto.getMotDePasse().equals(passwordModificationDto.getConfirmationMotDePasse())) {
             user.setPassword(passwordModificationDto.getMotDePasse());
             this.userService.save(user, true);
-            model.addAttribute(Constante.MODEL_MESSAGE, "Votre mot de passe à bien été enregister.");
+            session.setAttribute(Constante.MODEL_MESSAGE, "Votre mot de passe à bien été enregister.");
         }
         return Constante.PAGE_REDIRECT_ACCEUIL;
     }
@@ -114,7 +114,7 @@ public class MesInformationControleur {
         User user = (User) session.getAttribute(Constante.USER_SESSION);
         if(user != null){
             this.userService.delete(user);
-            model.addAttribute(Constante.MODEL_MESSAGE,"Votre compte à bien été supprimer.");
+            session.setAttribute(Constante.MODEL_MESSAGE,"Votre compte à bien été supprimer.");
             return Constante.PAGE_REDIRECT_SE_DECONNECTER;
         }else{
             return Constante.PAGE_REDIRECT_ACCEUIL;
