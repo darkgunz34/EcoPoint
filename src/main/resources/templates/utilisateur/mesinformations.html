@@ -4,72 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Mes informations Eco'point</title>
-</head>
-<body>
-<main>
-    <h2>Modifier mes informations</h2>
-    <form th:action="@{/mesinformations}" th:object="${userModificationDto}" method="post">
-        <div>
-            <div>
-                <label for="nom">Votre nom : *</label>
-                <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
-                <div th:text="${erreurNom}"></div>
-            </div>
-            <div>
-                <label for="prenom">Votre prénom : *</label>
-                <input type="text" name="prenom" placeholder="Votre prénom" id="prenom" th:value="${valeur_prenom}" required/>
-                <div th:text="${erreurPrenom}"></div>
-            </div>
-            <div>
-                <label for="telephone">Votre téléphone : *</label>
-                <input type="tel" name="telephone" placeholder="0601010101" id="telephone" th:value="${valeur_telephone}" required/>
-                <div th:text="${erreurTelephone}"></div>
-            </div>
-            <div>
-                <label>Mail : *
-                    <input type="text" name="mail" placeholder="contact@ecopoint.fr" th:value="${valeur_mail}" required/>
-                </label>
-                <div th:text="${erreurMail}"></div>
-            </div>
-        </div>
-        <div>
-            <div>
-                <label>Votre adresse :
-                    <input type="text" name="rue" placeholder="Votre adresse" th:value="${valeur_rue}"/>
-                </label>
-            </div>
-            <div>
-                <label>Votre code postal :
-                    <input type="text" name="codePostal" placeholder="Le code postal" th:value="${valeur_code_postale}"/>
-                </label>
-            </div>
-            <div>
-                <label>Votre ville :
-                    <input type="text" name="ville" placeholder="Votre ville" th:value="${valeur_ville}"/>
-                </label>
-            </div>
-        </div>
-        <div>
-            <input type="submit" value="Modifier mes informations">
-        </div>
-    </form>
 
-    <form th:action="@{/mesinformations/passwordupdate}" th:object="${passwordModificationDto}" method="post">
-        <div>
-            <label for="mdp">Nouveau mot de passe :</label>
-            <input id="mdp" type="password" placeholder="Nouveau mot de passe" name="motDePasse"/>
-        </div>
-        <div>
-            <label for="confirm_mdp">Confirmation mot de passe :</label>
-            <input id="confirm_mdp" type="password" placeholder="Confirmation de nouveau mot de passe" name="confirmationMotDePasse"/>
-        </div>
-        <div>
-            <input type="submit" value="Modifier mon mot de passe">
-        </div>
-    </form>
-    <input type="button" onclick="showConfirm()" value="Supprimer mon compte" />
-</main>
+    <link th:href="@{/style/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/mesinformations.css}" rel="stylesheet" />
+</head>
+<header th:include="template/header"></header>
+<body>
+    <div id="css_globale">
+        <h2 class="css_h2">Modifier mes informations</h2>
+        <main>
+            <form th:action="@{/mesinformations}" th:object="${userModificationDto}" method="post" class="css_form">
+                    <div class="css_form_label_input">
+                        <label for="nom">Votre nom : *</label>
+                        <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
+                        <div th:text="${erreurNom}"></div>
+                    </div>
+                    <div class="css_form_label_input">
+                        <label for="prenom">Votre prénom : *</label>
+                        <input type="text" name="prenom" placeholder="Votre prénom" id="prenom" th:value="${valeur_prenom}" required/>
+                        <div th:text="${erreurPrenom}"></div>
+                    </div>
+                    <div class="css_form_label_input">
+                        <label for="telephone">Votre téléphone : *</label>
+                        <input type="tel" name="telephone" placeholder="0601010101" id="telephone" th:value="${valeur_telephone}" required/>
+                        <div th:text="${erreurTelephone}"></div>
+                    </div>
+                    <div class="css_form_label_input">
+                        <label>Mail : *</label>
+                        <input type="text" name="mail" placeholder="contact@ecopoint.fr" th:value="${valeur_mail}" required/>
+                        <div th:text="${erreurMail}"></div>
+                    </div>
+                <div>
+                    <div class="css_form_label_input">
+                        <label>Votre adresse :</label>
+                        <input type="text" name="rue" placeholder="Votre adresse" th:value="${valeur_rue}"/>
+                    </div>
+                    <div class="css_form_label_input">
+                        <label>Votre code postal :</label>
+                        <input type="text" name="codePostal" placeholder="Le code postal" th:value="${valeur_code_postale}"/>
+                    </div>
+                    <div class="css_form_label_input">
+                        <label>Votre ville :</label>
+                        <input type="text" name="ville" placeholder="Votre ville" th:value="${valeur_ville}"/>
+                    </div>
+                </div>
+                <div class="css_ajustement_position_button">
+                    <input type="submit" value="Modifier mes informations" class="css_button">
+                </div>
+            </form>
+<div style="margin-top: 20px"></div>
+            <form th:action="@{/mesinformations/passwordupdate}" th:object="${passwordModificationDto}" method="post" class="css_form">
+                <div class="css_form_label_input">
+                    <label for="mdp">Nouveau mot de passe :</label>
+                    <input id="mdp" type="password" placeholder="Nouveau mot de passe" name="motDePasse"/>
+                </div>
+                <div class="css_form_label_input">
+                    <label for="confirm_mdp">Confirmation mot de passe :</label>
+                    <input id="confirm_mdp" type="password" placeholder="Confirmation de nouveau mot de passe" name="confirmationMotDePasse"/>
+                </div>
+                <div  class="css_ajustement_position_button">
+                    <input type="submit" value="Modifier mon mot de passe" class="css_button">
+                </div>
+            </form>
+            <div style="margin-top: 20px"></div>
+            <div class="css_form">
+                <input type="button" onclick="showConfirm()" value="Supprimer mon compte" class="css_button"/>
+            </div>
+        </main>
+    </div>
 </body>
+<footer th:include="template/footer"></footer>
 
 <script type="text/javascript">
     function showConfirm()

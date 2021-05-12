@@ -71,7 +71,7 @@ public final class AccessByAPI {
     }
 
     @PostMapping("/addArticle")
-    public ResponseEntity<Object> addArticle(@RequestParam(value = "idUser", defaultValue = "") final long idUser, @RequestParam(value = "codeArticle", defaultValue = "") final String codeArticle, final int quantiterArticle, final HttpSession session) {
+    public ResponseEntity<Object> addArticle(@RequestParam(value = "idUser", defaultValue = "") final long idUser, @RequestParam(value = "codeArticle", defaultValue = "") final String codeArticle, @RequestParam(value = "quantiterArticle", defaultValue = "0") final int quantiterArticle, final HttpSession session) {
         final String s =(String) session.getAttribute("key");
         if(s != null && s.equals(KEY_COOKIE + idUser)) {
             final User u = this.userService.readFromKey(idUser);
@@ -87,6 +87,15 @@ public final class AccessByAPI {
             return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+    }
+
+    @GetMapping("/findArticle")
+    public ResponseEntity<Object> rechercherArticle(@RequestParam(value = "codeArticle", defaultValue = "") final String codeArticle) {
+            final Article article = this.articleService.readFromCode(codeArticle);
+            if (article != null) {
+                return new ResponseEntity<>(article,HttpStatus.OK);
+            }
+            return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
     }
 
     @PostMapping("/addArticleNew")

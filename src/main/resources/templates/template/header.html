@@ -5,19 +5,17 @@
     <span></span>
     <span></span>
     <ul id="menu">
-      <a href="#"><li>Comment trier ?</li></a>
-      <a href="#"><li>Nos partenaires</li></a>
-      <a href="#"><li>Contact</li></a>
-      <a href="#"><li>FAQ</li></a>
-      <a href="utilisateur/mesinformations"><li>Mes informations</li></a>
+      <a href="/contact"><li>Contact</li></a>
+      <a href="/mesinformations"><li>Mes informations</li></a>
     </ul>
   </div>
 </nav>
 <div class="menu">
-  <a href="">Comment trier ?</a>
-  <a href="">Nos partenaires</a>
-  <a href="">Contact</a>
-  <a href="">FAQ</a>
+  <a href="/">Page d'acceuil</a>
+  <a href="/contact">Contact</a>
+  <a th:if="${userAccueilDto != null}" href="/mesinformations">Mes informations</a>
+  <a th:if="${userAccueilDto == null}" href="/seconnecter">Se Connecter</a>
+  <a th:if="${userAccueilDto != null}" href="/sedeconnecter">Se Déconnecter</a>
 </div>
 <div class="logo-co">
   <img src="./media/LogoEcoPoint.svg" alt="LogoEcoPoint">

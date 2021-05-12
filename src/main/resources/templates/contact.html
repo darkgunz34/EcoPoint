@@ -5,32 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacter Eco'point</title>
+
+    <link th:href="@{/style/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/contact.css}" rel="stylesheet" />
+
 </head>
+<header th:include="template/header"></header>
 <body>
-    <h2>Formulaire de contact</h2>
-    <form th:action="@{/contact}" th:object="${contactDto}" method="post">
-        <div th:text="${erreurInterne}"></div>
-        <div>
-            <label for="nom">Nom : *</label>
-            <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
-            <div th:text="${erreurNom}"></div>
-        </div>
-        <div>
-            <label for="mail">Mail : *</label>
-            <input type="email" name="mail" placeholder="contact@ecopoint.fr" id="mail" th:value="${valeur_mail}" required/>
-            <div th:text="${erreurMail}"></div>
-        </div>
-        <div>
-            <label for="objet" >Objet : *</label>
-            <input id="objet" name="objet" type="text" placeholder="Votre demande" th:value="${valeur_objet}" required>
-        </div>
-        <div>
-            <label for="message" >Message : *</label>
-            <input id="message" name="message" type="text" placeholder="Votre message" th:value="${valeur_message}" required>
-        </div>
-        <div>
-            <input type="submit" value="Envoyer">
-        </div>
-    </form>
+    <div class="css_bandeau_wave">
+        <h2 id="css_h2">Posez-nous votre question</h2>
+        <p>Un problème technique, une question concernant les bornes, le système de points,
+            l’équipe du service client vous répond en moins de 12 heures, du lundi au vendredi.</p>
+    </div>
+
+    <main>
+        <h2>Formulaire de contact</h2>
+        <form th:action="@{/contact}" th:object="${contactDto}" method="post" class="css_form">
+            <div th:text="${erreurInterne}"></div>
+            <div class="css_form_label_input">
+                <label for="nom">Nom : *</label>
+                <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
+                <div th:text="${erreurNom}"></div>
+            </div>
+            <div class="css_form_label_input">
+                <label for="mail">Mail : *</label>
+                <input type="email" name="mail" placeholder="contact@ecopoint.fr" id="mail" th:value="${valeur_mail}" required/>
+                <div th:text="${erreurMail}"></div>
+            </div>
+            <div class="css_form_label_input">
+                <label for="objet" >Objet : *</label>
+                <input id="objet" name="objet" type="text" placeholder="Votre demande" th:value="${valeur_objet}" required>
+            </div>
+            <div class="css_textarea">
+                <label for="message" >Message : *</label>
+                <textarea id="message" name="message" rows="10" cols="60" placeholder="Votre message" th:value="${valeur_message}" required> Entrée un message ici ...</textarea>
+            </div>
+            <div class="css_ajustement_position_button">
+                <input type="submit" value="Envoyer" class="css_button">
+            </div>
+        </form>
+    </main>
 </body>
+<footer th:include="template/footer"></footer>
 </html>
