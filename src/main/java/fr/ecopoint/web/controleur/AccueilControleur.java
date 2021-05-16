@@ -9,7 +9,6 @@ import fr.ecopoint.web.dto.entities.UserAccueilDto;
 import fr.ecopoint.web.dto.entities.factory.FactoryUserAccueilDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +30,7 @@ public class AccueilControleur {
     }
 
     @ModelAttribute("userAccueilDto")
-    public UserAccueilDto userRegistrationDto(@NotNull final HttpSession session) {
+    public UserAccueilDto userRegistrationDto(final HttpSession session) {
         final User user = (User) session.getAttribute(Constante.USER_SESSION);
         if (user != null) {
             int total = 0;
