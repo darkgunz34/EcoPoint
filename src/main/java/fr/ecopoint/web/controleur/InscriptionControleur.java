@@ -11,7 +11,6 @@ import fr.ecopoint.model.exception.UserException;
 import fr.ecopoint.model.factory.FactoryAdresse;
 import fr.ecopoint.model.factory.FactoryRole;
 import fr.ecopoint.model.factory.FactoryUser;
-import fr.ecopoint.model.utils.MailUtile;
 import fr.ecopoint.service.RoleService;
 import fr.ecopoint.service.UserService;
 import fr.ecopoint.web.Constante.Constante;
@@ -34,16 +33,13 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/inscription")
 public class InscriptionControleur {
 
-    @Qualifier("javaMailSender")
-    public MailUtile mailUtile;
     private static final Logger logger = LogManager.getLogger(InscriptionControleur.class);
     private final UserService userService;
     private final RoleService roleService;
 
-    public InscriptionControleur(final RoleService roleService, final UserService userService,final MailUtile mailUtile){
+    public InscriptionControleur(final RoleService roleService, final UserService userService){
         this.roleService = roleService;
         this.userService = userService;
-        this.mailUtile = mailUtile;
     }
 
     @ModelAttribute("userCreateLoginDto")
@@ -80,7 +76,7 @@ public class InscriptionControleur {
             final User user = FactoryUser.getUserFromCreation(userRegistrationDto, role);
             final Adresse adresse = FactoryAdresse.getAdresseFromCreation(userRegistrationDto);
             user.setAdresse(adresse);
-            if (mailUtile.envoyerMailInscription(user) && !this.userService.exit(user) && this.userService.save(user,true)) {
+            if (!this.userService.exit(user) && this.userService.save(user,true)) {
                 session.setAttribute("user", user);
                 model.addAttribute("message", "Consulter vos mails afin d'activer votre compte");
                 return Constante.PAGE_REDIRECT_ACCEUIL;
@@ -88,9 +84,6 @@ public class InscriptionControleur {
                 logger.debug("tentative d'ajout de doublon :");
                 throw new UserException(MessageEx.MESSAGE_EXCEPTION_DOUBLON);
             }
-        } catch (final MailException mailException) {
-            model.addAttribute(Constante.ERREUR_INTERNE, "Impossible d'envoyer un mail pour confirmer l'inscription. Veuillez réessayer ultérieurement ou contacter directement le support. Veuillez nous excuser de cette gène occasionné.");
-            logger.error("Erreur durant l'envoie du mail : ".concat(mailException.getMessage()));
         } catch (final UserException userException) {
             model.addAttribute(Constante.ERREUR_INTERNE, userException.getMessage());
             logger.error("Erreur durant le traitement des données du userException :".concat(userException.getMessage()));
