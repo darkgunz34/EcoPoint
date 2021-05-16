@@ -1,40 +1,27 @@
-package fr.ecopoint.model.service;
+package fr.ecopoint.service;
 
 import fr.ecopoint.model.entities.Role;
 import fr.ecopoint.model.exception.RoleException;
-import fr.ecopoint.model.repository.RoleRepository;
+import fr.ecopoint.repository.RoleRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 
-/**
- * Service en charge d'implémenter le CRUD Role.
- */
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    /**
-     * Le logger de la class.
-     */
-    private final static Logger logger = LogManager.getLogger(RoleServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(RoleServiceImpl.class);
 
-    /**
-     * Interface pour le CRUD Role.
-     */
     private final RoleRepository roleRepository;
 
-    /**
-     * Constructeur du service.
-     * @param roleRepository  Interface pour le CRUD Role
-     */
     public RoleServiceImpl(final RoleRepository roleRepository){
         this.roleRepository = roleRepository;
     }
 
     @Override
     public Role findByName(final String name) throws RoleException {
-        logger.debug("Recherche un role avec le nom : ".concat(name));
+        logger.debug("Recherche un role avec le nom : {}", name);
         final Role role = this.roleRepository.findByName(name);
         if(role != null){
             logger.debug("Recherche un role avec le nom avec succès");
@@ -53,7 +40,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Boolean exit(final Role role){
+    public boolean exit(final Role role){
         return this.roleRepository.findByName(role.getName()) != null;
     }
 }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EcoPoint</title>
+
+    <link th:href="@{/style/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/acceuil.css}" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.esm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/helpers.esm.min.js"></script>
+    <script src="js/charjs_acceuil.js"></script>
+</head>
+
+<header th:include="template/header"></header>
+<body>
+<p th:text="${message}"></p>
+<div class="css_titre">
+    <p><span>ECO'POINT</span><br> RÉCOMPENSE LES GESTES ÉCOLOGIQUES</p>
+</div>
+<div class="css_phrase_accroche">
+    <p><b class="change_color_jaune">ECO’POINT</b> <b class="change_color_blanc">c’est quoi ?</b></p>
+    <p>
+        Notre but est de sensibiliser au maximum les citoyens d’aujourd’hui en mettant à disposition un ensemble de bonne pratique pour tous déchets, une question ? Une interrogation ?<br/>
+        Nous vous expliquerons tout sur le recyclage de vos produits.
+    </p>
+    <div>
+        <button class="css_button"><a href="#">En savoir plus</a></button>
+    </div>
+</div>
+<div th:if="${userAccueilDto != null}">
+    <p>Bonjour <span th:text="|${userAccueilDto.getNom()} ${userAccueilDto.getPrenom()}|"></span></p>
+    <div>
+        <p>Vous avez <span th:text="|${userAccueilDto.getNombreTotalPoint()}|"></span> Points disponibles </p>
+        <img src="#" alt="Image">
+    </div>
+    <p></p>
+    <div>
+        <button type="button">Afficher mon QRcode</button>
+        <button type="button"><a href="#">Détails des points</a></button>
+    </div>
+</div>
+
+<div class="css_inforamtion">
+    <p>Vous êtes de plus en plus nombreux a venir nous rejoindre dans notre démarche éco-responsable qui a pour but de protéger écosystème de notre belle planète</p>
+</div>
+<div class="css_phrase_accroche">
+    <p>Quelque chiffre a titre informatif, le mois dernier vous avez était plus de 305 membre a participer a notre sensibilisations  et plus de 110 information on était demander pour le recyclage des déchets.</p>
+</div>
+    <div class="CharJS">
+        <canvas id="NumberOfParticipation" width="200px"></canvas>
+        <script>
+            var ctx = document.getElementById('NumberOfParticipation').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+                    datasets: [{
+                        label: 'Nombre maximum de participation a notre sensibilitation par mois',
+                        data: [243, 268, 289, 305, 154],
+                        backgroundColor: ['rgb(245, 215, 114)'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                font: {
+                                    size: 18,
+                                    family:"Futura Std bold",
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+<footer th:include="template/footer"></footer>
+</html>

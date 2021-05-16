@@ -1,57 +1,90 @@
 <!DOCTYPE html>
 <html lang="fr"
-      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion à Eco'point</title>
+    <title>Inscription EcoPoint</title>
+
+    <link th:href="@{/style/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/footer.css}" rel="stylesheet" />
+    <link th:href="@{/style/css/inscription.css}" rel="stylesheet" />
 </head>
+<header th:include="template/header"></header>
 <body>
+<div class="css_bandeau_wave">
+    <h2 id="css_h2">Créer un compte</h2>
+    <p>Vous avez déjà un compte ? <a href="seconnecter">Se connecter</a></p>
+</div>
 <main>
-    <h2>Inscription</h2>
-    <form th:action="@{/inscription}" th:object="${userCreateLoginDto}" method="post">
-        <div th:if="${erreurDejaExistant}" th:text="${erreurDejaExistant}"></div>
-        <div th:if="${erreurInterne}" th:text="${erreurInterne}"></div>
-        <div>
-            <label for="nom">Nom : *</label>
-            <input type="text" name="nom" placeholder="Votre nom" id="nom" th:value="${valeur_nom}" required />
-            <div th:if="${erreurNom}" th:text="${erreurNom}"></div>
+    <form th:action="@{/inscription}" th:object="${userCreateLoginDto}" method="post" class="css_form">
+        <div th:text="${erreurInterne}"></div>
+        <div class="css_ajustement_de_comportement">
+            <div class="css_form_label_input_nom">
+                <label for="nom">Nom : </label>
+                <input type="text" id="nom" th:value="${valeur_nom}" required/>
+                <div th:text="${erreurNom}"></div>
+            </div>
+            <div class="css_form_label_input_prenom">
+                <label for="prenom">Prénom : </label>
+                <input type="text" id="prenom" th:value="${valeur_prenom}" required/>
+                <div th:text="${erreurPrenom}"></div>
+            </div>
+        </div>
+        <div class="css_form_label_input">
+            <label for="telephone">Téléphone : </label>
+            <input type="tel" id="telephone" th:value="${valeur_telephone}" required/>
+            <div th:text="${erreurTelephone}"></div>
+        </div>
+        <div class="css_form_label_input">
+            <label for="mail">E-mail : </label>
+            <input type="email" placeholder="E-mail" id="mail" th:value="${valeur_mail}" required/>
+            <div th:text="${erreurMail}"></div>
+        </div>
+        <div class="css_form_label_input">
+            <label for="motDePasse">Mot de passe : </label>
+            <input type="password" placeholder="***********" id="motDePasse" required/>
+        </div>
+        <div class="css_form_label_input">
+            <label for="motDePasse2">Confirmation<br /> mot de passe : </label>
+            <input type="password" placeholder="***********" id="motDePasse2" required/>
+        </div>
+        <div class="css_form_label_input">
+            <label for="pseudo">Pseudo : *</label>
+            <input type="text" name="pseudo" placeholder="Votre prénom" id="pseudo" th:value="${valeur_pseudo}" required/>
+            <div th:text="${erreurPrenom}"></div>
+        </div>
+
+
+        <div class="css_form_label_input">
+            <label for="adresse">Adresse : </label>
+            <input type="text" placeholder="Adresse" id="adresse" th:value="${valeur_rue}"/>
+        </div>
+        <div class="css_form_label_input">
+            <label for="code_postal">Code postal :</label>
+            <input id="code_postal" type="number" name="code_postal" th:value="${valeur_code_postal}"/>
+        </div>
+        <div class="css_form_label_input">
+            <label for="ville">Ville :</label>
+            <input id="ville" type="text" placeholder="Ville" name="ville" th:value="${valeur_ville}"/>
         </div>
         <div>
-            <label for="prenom">Prénom : *</label>
-            <input type="text" name="prenom" placeholder="Votre prénom" id="prenom" th:value="${valeur_prenom}" required/>
-            <div th:if="${erreurPrenom}" th:text="${erreurPrenom}"></div>
+            <input type="checkbox" id="engagement" name="engagement">
+            <label for="engagement" id="text_coche">
+                Nous vous enverrons régulièrement des e-mails avec des offres concernant nos services.<br />
+                Vous pouvez vous désinscrire de ces e-mails marketing en tout temps,<br />
+                sans frais, en cliquant sur le lien inclus dans les e-mails.<br />
+            </label>
         </div>
-        <div>
-            <label for="telephone">Téléphone : *</label>
-            <input type="tel" name="telephone" placeholder="0601010101" id="telephone" th:value="${valeur_telephone}" required/>
-            <div th:if="${erreurTelephone}" th:text="${erreurTelephone}"></div>
-        </div>
-        <div>
-            <label for="adresse">Adresse : *</label>
-            <input type="text" name="adresse" placeholder="exemple" id="adresse" th:value="${valeur_adresse}" required/>
-            <div th:if="${erreurAdresse}" th:text="${erreurAdresse}"></div>
-        </div>
-        <div>
-            <label for="mail">Mail : *</label>
-            <input type="email" name="mail" placeholder="contact@ecopoint.fr" id="mail" th:value="${valeur_mail}" required/>
-            <div th:if="${erreurMail}" th:text="${erreurMail}"></div>
-        </div>
-        <div>
-            <label for="motDePasse">Mot de passe : *</label>
-            <input type="password" name="motDePasse" placeholder="***********" id="motDePasse" required/>
-            <div th:if="${erreurMotDePasse}" th:text="${erreurMotDePasse}"></div>
-        </div>
-        <div>
-            <label for="motDePasse2">Confirmation mot de passe : *</label>
-            <input type="password" name="MotDePasse2" placeholder="***********" id="motDePasse2" required/>
-            <div th:if="${erreurMotDePasse2}" th:text="${erreurMotDePasse2}"></div>
-        </div>
-        <div>
-            <input type="submit" value="S'inscrire">
+        <p>
+            En cliquant sur S’inscrire, vous confirmez avoir lu et accepté les <a href="#">Conditions d’utilisation</a>. <br />
+            Veuillez vous référer à notre Avis sur les données personnelles pour toute information concernant le traitement de vos données.
+        </p>
+        <div class ="css_ajustement_position_button">
+            <input type="submit" value="S'inscrire" class="css_button">
         </div>
     </form>
 </main>
 </body>
+<footer th:include="template/footer"></footer>
 </html>

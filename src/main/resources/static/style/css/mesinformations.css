@@ -1,0 +1,66 @@
+*{
+    margin : 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:"Futura Std bold";
+}
+
+@font-face {
+    font-family: "Futura Std bold";
+    src: url("../media/font/FuturaStd-Bold.woff");
+}
+
+
+#css_globale{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5em;
+    margin-bottom: 5em;
+    margin-right:30%;
+    margin-left: 30%;
+    background-color: #58b482;
+    padding:2em;
+    padding-left: 3em;
+    color: white;
+}
+
+.css_h2{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.3em;
+}
+
+.css_form_label_input > label{
+    /**font-weight: bold;*/
+    font-size: 1.1em;
+    display: block;
+    width: 12em;
+    float: left;
+}
+
+.css_form_label_input > input{
+    margin-bottom: 2em;
+    border: none;
+    font-size: 1.1em;
+    border-bottom: 1px solid #58B482;
+    margin-left: 0.9em;
+    width: 60%;
+}
+.css_form{
+    width: 100%;
+}
+
+.css_ajustement_position_button{
+    display: flex;
+    justify-content: center;
+}
+
+.css_button{
+    font-size: 1em;
+    border: none;
+    color: white;
+    padding: 1% 3% 1% 3%;
+    background-color: #F2D575;
+    margin-top: 1em;
+    border-radius: 30px;
+}

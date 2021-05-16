@@ -1,29 +1,38 @@
 package fr.ecopoint.web.controleur;
 
+import fr.ecopoint.api.AccessByAPI;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.method.HandlerTypePredicate;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * Ensemble des routes pouvant être pointer sur l'application.
- */
 @Configuration
 public class RouteConfiguration implements WebMvcConfigurer {
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.addPathPrefix("/api",
+                HandlerTypePredicate.forAnnotation(RestController.class));
+    }
 
     @Override
     public void addViewControllers(final @NotNull ViewControllerRegistry registry) {
         this.affichagePageUtilisateur(registry);
     }
 
-    /**
-     * Méthode pour la gestion des pages accessible de l'application.
-     * @param registry La class où est stocker ces données.
-     */
     private void affichagePageUtilisateur(final ViewControllerRegistry registry){
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController("/index").setViewName("index");
+        registry.addRedirectViewController("/","/accueil");
+        registry.addViewController("/accueil").setViewName("accueil");
         registry.addViewController("/inscription").setViewName("inscription");
         registry.addViewController("/seconnecter").setViewName("seconnecter");
+        registry.addViewController("/sedeconnecter").setViewName("sedeconnecter");
+        registry.addViewController("/contact").setViewName("contact");
+        registry.addViewController("/utilisateur/mesinformations").setViewName("mesinformations");
+        registry.addViewController("mesinformations/ConfirmationSupression");
+        registry.addViewController("mesinformations/passwordupdate");
     }
 }

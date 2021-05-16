@@ -1,0 +1,72 @@
+*{
+    margin : 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family:"Futura Std bold";
+}
+
+@font-face {
+    font-family: "Futura Std bold";
+    src: url("../media/font/FuturaStd-Bold.woff");
+}
+.css_phrase_accroche{
+    display: flex;
+    flex-direction: column;
+}
+.css_phrase_accroche{
+    background-color: #58b482;
+    text-align: center;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    font-size: 1.1em;
+    color: white;
+}
+
+.change_color_blanc{
+    color: white;
+}
+
+.change_color_jaune{
+    color: #F5D772;
+}
+.css_phrase_accroche >p{
+    margin-bottom: 1em;
+}
+
+.css_button{
+    font-size: 1em;
+    border: none;
+    color: white;
+    padding: 0.5% 0.5% 0.5% 0.5%;
+    background-color: #F2D575;
+    margin-top: 1em;
+    border-radius: 30px;
+    text-decoration: none;
+}
+.css_button>a{
+    text-decoration: none;
+}
+
+.css_inforamtion{
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #58b482;
+}
+
+.css_titre{
+    margin-left: 2em;
+    margin-top: 1.2em;
+    margin-bottom: 1.2em;
+    font-size: 1.4em;
+    color: #F2D575;
+}
+.css_titre>p>span{
+    color: #58b482;
+}
+.CharJS{
+    margin:auto;
+    width: 70%;
+}

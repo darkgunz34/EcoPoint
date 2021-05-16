@@ -1,0 +1,264 @@
+@font-face {
+    font-family: "Futura Std bold";
+    src: url("../../media/font/FuturaStd-Bold.woff");
+}
+
+header{
+    display: flex;
+    align-items: end;
+}
+
+header div.menu {
+    width: 36vw;
+    margin: 0 0 1vh 2vw;
+    visibility: visible;
+}
+
+header div.menu a{
+    margin: 0 2vw 0 0;
+    color: #58b482;
+    text-decoration: none;
+    font-size: larger;
+    font-weight: bold;
+}
+
+header div.logo-co{
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+}
+
+header div.logo-co img{
+    height: 10vh;
+}
+
+header div.logo-co a{
+    margin: 0 0 1vh 0;
+    display: flex;
+    align-items: end;
+}
+
+header div.logo-co a img{
+    height: 5vh;
+}
+
+div.user{
+    /*width: 36vw;
+    display: flex;
+    justify-content: end;*/
+    display: flex;
+    justify-content: end;
+    margin-left: auto;
+    right: 0;
+    padding: 0 2vw 0 0;
+}
+
+div.user a img{
+    height: 7vh;
+}
+
+img.fond{
+    width: 100vw;
+    left: 0;
+    top: 0;
+    position: fixed;
+    z-index: -1;
+}
+
+body
+{
+    margin: 0;
+    padding: 0;
+    color: #cdcdcd;
+    font-family: "Futura Std bold", serif;
+    font-size: 0.8em;
+}
+
+nav {
+    visibility: hidden;
+    margin: 0 0 0 4vw;
+    position: absolute;
+}
+
+#menuToggle
+{
+    display: block;
+    position: relative;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-top: 10px;
+}
+
+#menuToggle a
+{
+    text-decoration: none;
+    color: #232323;
+    transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+    color: tomato;
+}
+
+
+#menuToggle input
+{
+    display: block;
+    width: 40px;
+    height: 32px;
+    position: absolute;
+    top: -7px;
+    left: -5px;
+    cursor: pointer;
+    opacity: 0; /* hide this */
+    z-index: 2; /* and place it over the hamburger */
+    -webkit-touch-callout: none;
+}
+
+#menuToggle span
+{
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #cdcdcd;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0;
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+    background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+    opacity 0.55s ease;
+}
+
+#menuToggle span:first-child
+{
+    transform-origin: 0 0;
+}
+
+#menuToggle span:nth-last-child(2)
+{
+    transform-origin: 0 100%;
+}
+
+#menuToggle input:checked ~ span
+{
+    opacity: 1;
+    transform: rotate(45deg) translate(-2px, -1px);
+    background: #232323;
+}
+
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+    transform: rotate(-45deg) translate(0, -1px);
+}
+
+#menu
+{
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    transform-origin: 0 0;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    position: absolute;
+    width: 20vh;
+    margin: 0 0 0 -200%;
+    background-color: white;
+}
+
+#menu li
+{
+    padding: 10px 0;
+    font-size: 22px;
+}
+
+#menuToggle input:checked ~ ul
+{
+    transform: none;
+}
+
+@media screen and (max-width: 1600px) {
+
+}
+
+@media screen and (max-width: 1024px) {
+    header div.menu{
+        visibility: hidden;
+        position: absolute;
+    }
+    nav{
+        visibility: visible;
+    }
+    div.user {
+        margin-left: 0;
+    }
+    header div.logo-co {
+        width: 20vw;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+    }
+    #menu {
+        transform-origin: 0 0;
+        position: absolute;
+        width: max-content;
+        margin: 0 0 0 -5vw;
+        list-style-type: none;
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    }
+
+}
+
+@media screen and (max-width: 500px) {
+    header div.menu{
+        position: absolute;
+    }
+    header div.logo-co {
+        margin: 0 auto;
+    }
+    div.user {
+        display: flex;
+        justify-content: end;
+        margin-left: 0;
+        padding: 0 2vw 0 0;
+    }
+    #menu {
+        transform-origin: 0 0;
+        position: absolute;
+        width: max-content;
+        margin: 0 0 0 -10vw;
+        list-style-type: none;
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    }
+}
+
+@media screen and (max-width: 389px) {
+    header div.menu{
+        position: absolute;
+    }
+    header div.logo-co {
+        margin: 0 auto;
+    }
+    div.user {
+        display: flex;
+        justify-content: end;
+        margin-left: 0;
+        padding: 0 2vw 0 0;
+    }
+    #menu {
+        transform-origin: 0 0;
+        position: absolute;
+        width: max-content;
+        margin: 0 0 0 -12vw;
+        list-style-type: none;
+        transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    }
+}
