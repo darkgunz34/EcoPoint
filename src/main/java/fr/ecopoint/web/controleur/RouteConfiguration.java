@@ -1,7 +1,6 @@
 package fr.ecopoint.web.controleur;
 
 import fr.ecopoint.api.AccessByAPI;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,7 @@ public class RouteConfiguration implements WebMvcConfigurer {
     }
 
     @Override
-    public void addViewControllers(final @NotNull ViewControllerRegistry registry) {
+    public void addViewControllers(final ViewControllerRegistry registry) {
         this.affichagePageUtilisateur(registry);
     }
 
